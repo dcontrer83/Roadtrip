@@ -1,0 +1,21 @@
+#mainImg {
+    width: 100%;
+}
+
+.containerImg {
+    position: relative;
+}
+
+#textImg {
+    position: absolute;
+    top: 69px;
+    right: 93px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 50px;
+    color: red;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+#containerInput {
+    display: flex;
+}
