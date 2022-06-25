@@ -3,7 +3,7 @@ const path = require('path');
 const app = express();
 
 //Render anything within the assets folder
-app.use(express.static(path.join(__dirname)));
+app.use('/', express.static(path.join(__dirname, 'public')))
 
 //Display index.html page when user enters the homepage
 app.get('/', (req, res) => {
