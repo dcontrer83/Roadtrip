@@ -19,3 +19,37 @@
 #containerInput {
     display: flex;
 }
+
+
+/* Google maps CSS */
+#map {
+    height: 75%;
+    margin-bottom: 50px;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Location box CSS */
+.custom-map-control-button {
+    left: 900px;
+    margin-top: 10px;
+    height: 40px;
+    width: 220px;
+    font-family: 'Mulish', sans-serif;
+    color: rgb(0,0,0);
+    font-size: 18px;
+    font-weight: bold;
+    background: rgb(255, 255, 255);
+}
+
+.custom-map-control-button:hover {
+    cursor: pointer;
+  }
+
+/* This displays the location box to have responsive layout */
+button.custom-map-control-button[style] {
+    left: 40% !important;
+}
