@@ -7,7 +7,7 @@ app.use(express.static(path.join(__dirname)));
 
 //Display index.html page when user enters the homepage
 app.get('/', (req, res) => {
-    res.sendFile('index.html', { root: '../../Roadtrip' });
+    res.sendFile('index.html', { root: __dirname });
 })
 
 //create server at port 3000
