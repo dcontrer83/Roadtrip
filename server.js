@@ -7,7 +7,7 @@ app.use(express.static(path.join(__dirname)));
 
 //Display index.html page when user enters the homepage
 app.get('/', (req, res) => {
-    res.sendFile('index.html', { root: __dirname });
+    res.sendFile('public/index.html', { root: __dirname });
 })
 
 //create server at port 3000
