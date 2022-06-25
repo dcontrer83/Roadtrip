@@ -53,3 +53,17 @@ html, body {
 button.custom-map-control-button[style] {
     left: 40% !important;
 }
+#btn {
+    background-color: yellow;
+}
+
+#defaultMap {
+    width: 100%;
+}
+
+.textBox {
+    text-align: center;
+    height: 40px;
+    width: 100%;
+}
+
