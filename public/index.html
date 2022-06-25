@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roadtrip</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <!-- google API - Daniel used -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="assets/style.css" type="text/css">
+
+</head>
+
+<body>
+
+<!-- slide show -->
+  <div class="slideshow-container">
+
+    <div class="mySlides fade">
+      <img class="roadTripImg" src="./assets/images/yoal-desurmont-S9OCBwRFV_k-unsplash.jpg">
+    </div>
+    
+    <div class="mySlides fade">
+      <img class="roadTripImg" src="./assets/images/jake-blucker-tMzCrBkM99Y-unsplash.jpg">
+    </div>
+    
+    <div class="mySlides fade">
+      <img class="roadTripImg" src="./assets/images/silas-baisch-_B0efO8WXXI-unsplash.jpg">
+    </div>
+
+    <div class="mySlides fade">
+      <img class="roadTripImg" src="./assets/images/drew-lindsley-7UdSup394EI-unsplash.jpg">
+    </div>
+
+    <div class="mySlides fade">
+      <img class="roadTripImg" src="./assets/images/ciel-eFQxsih-VUw-unsplash.jpg">
+    </div>
+
+  </div>
+<!-- slide show end -->
+
+  <div id="textImg">Are We There Yet?</div>
+
+    <div id="containerInput">
+        <input class="input is-rounded" type="text" placeholder="Rounded input">
+        <input class="input is-rounded" type="text" placeholder="Rounded input">
+        <button class="button" id="btn">Plan</button>
+    </div>
+
+    <!-- Google maps box -->
+    <div id="map"></div>
+
+    <textarea class="textBox" readonly>Distance of Travel: </textarea>
+    <textarea class="textBox" readonly>Approximate Duration: </textarea>
+
+    <script src="assets/script.js"></script>
+    <!-- google maps api url -->
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWpHE17jcCzscWWWAzcTc3wiMnH4ewdho&callback=initMap">
+        </script>
+</body>
+
+</html>
