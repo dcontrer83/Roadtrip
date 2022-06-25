@@ -1,13 +1,14 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const router = express.Router();
 
-//Render anything within the assets folder
+//Render all static files folder
 app.use(express.static('public'));
 
 //Display index.html page when user enters the homepage
-app.get('/', (req, res) => {
-    res.sendFile('public/index.html', { root: __dirname });
+router.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname + '/public/index.html'));
 })
 
 //create server at port 3000
