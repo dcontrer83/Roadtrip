@@ -6,7 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roadtrip</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <!-- google API - Daniel used -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300&display=swap" rel="stylesheet">
+        
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="./assets/style.css">
 
 </head>
@@ -22,8 +28,13 @@
         <button class="button">Button</button>
     </div>
 
+    <!-- Google maps box -->
+    <div id="map"></div>
+
     <script src="./assets/script.js"></script>
+    <!-- google maps api url -->
+    <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPbIgaBr0ASK-ZxqMA15pdGV0m5ZP_zyI&callback=initMap">
+    </script>
 </body>
 </html>
-
-<!-- <div id="map"></div> -->
