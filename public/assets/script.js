@@ -109,3 +109,49 @@ function showSlides() {
   slides[slideIndex - 1].className += " active";
   setTimeout(showSlides, 10000); // Change image every 10 seconds
 }
+
+//calculate distance and duration using starting and ending destinations
+function calculateDistance(event) {
+  event.preventDefault();
+  var origin = document.querySelector('#startingDestination').value;
+  var destination = document.querySelector('#endingDestination').value;
+  var service = new google.maps.DistanceMatrixService();
+  service.getDistanceMatrix(
+    {
+      origins: [origin],
+      destinations: [destination],
+      travelMode: google.maps.TravelMode.DRIVING
+    },
+    callback
+  )
+}
+
+//callback of the calculations done above
+function callback(response, status) {
+  if (status != google.maps.DistanceMatrixStatus.OK) {
+    document.getElementById("distanceTravel").innerHTML(error);
+  }
+  else {
+    var origin = response.originAddresses[0];
+    console.log(origin);
+    var destination = response.destinationAddresses[0];
+    console.log(destination);
+    if (response.rows[0].elements[0].status === "ZERO_RESULTS") {
+      document.getElementById("distanceTravel").textContent = "Better get on a plane since there is no road between your two locations!";
+    }
+    else {
+      var distance = response.rows[0].elements[0].distance;
+      console.log(distance);
+      var duration = response.rows[0].elements[0].duration;
+      console.log(duration);
+      console.log(response.rows[0].elements[0].distance);
+      var distance_in_mile = distance.value / 1609.34;
+      console.log(distance_in_mile);
+      var duration_text = duration.text;
+      document.getElementById("distanceTravel").textContent = "Distance in Miles: " + distance_in_mile.toFixed(2);
+      document.getElementById("durationTravel").textContent = "Duration in Minutes: " + duration_text;
+    }
+  }
+}
+
+document.querySelector('#btn').addEventListener('click', calculateDistance);
