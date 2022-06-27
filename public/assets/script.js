@@ -62,7 +62,6 @@ function generateRoute(event) {
     travelMode: google.maps.TravelMode.DRIVING
   }
 
-  console.log(request);
 
   //Send the request to the route method
   directionService.route(request, (result, status) => {
@@ -76,6 +75,33 @@ function generateRoute(event) {
 }
 
 document.querySelector('#btn').addEventListener('click', generateRoute);
+
+//function to generate a request to the places API.
+function generatePlaces(event) {
+  event.preventDefault();
+
+  //Initialize the places service object
+  let service = new google.maps.places.PlacesService(map);
+
+  let request = {
+    location: document.querySelector('#endingDestination').value,
+    radius: '5000',
+    type: ['tourist_attraction']
+  }
+
+  service.nearbySearch(request, createMarkers);
+}
+
+//function to create markers
+function createMarkers(results, status) {
+  if (status == google.maps.places.PlacesServiceStatus.OK) {
+    for (var i = 0; results.length; i++) {
+      console.log(results[i]);
+    }
+  }
+}
+
+document.querySelector('#btn').addEventListener('click', generatePlaces);
 
 //function to display error when user does not allow location
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -155,3 +181,6 @@ function callback(response, status) {
 }
 
 document.querySelector('#btn').addEventListener('click', calculateDistance);
+
+
+//function to generate places
