@@ -152,12 +152,12 @@ function calculateDistance(event) {
       destinations: [destination],
       travelMode: google.maps.TravelMode.DRIVING
     },
-    callback
+    displayDistance
   )
 }
 
 //callback of the calculations done above
-function callback(response, status) {
+function displayDistance(response, status) {
   if (status != google.maps.DistanceMatrixStatus.OK) {
     document.getElementById("distanceTravel").innerHTML(error);
   }
