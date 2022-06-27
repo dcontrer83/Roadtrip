@@ -50,6 +50,9 @@ function initMap() {
 
   //Adding the directions display onto the map
   directionsDisplay.setMap(map);
+
+  //initialize the autocomplete
+  initAutocomplete();
 }
 
 //Function to generate route of trave
@@ -62,7 +65,6 @@ function generateRoute(event) {
     travelMode: google.maps.TravelMode.DRIVING
   }
 
-  console.log(request);
 
   //Send the request to the route method
   directionService.route(request, (result, status) => {
@@ -75,7 +77,35 @@ function generateRoute(event) {
   });
 }
 
+// Call the generateRoute function when the user clicks the button
 document.querySelector('#btn').addEventListener('click', generateRoute);
+
+//variables to hold the autocomplete objects
+let startAutocomplete;
+let endAutocomplete;
+
+//function to intialize autocomplete for start/ending destination input fields.
+function initAutocomplete() {
+  //initializing the Place autocomplete services
+  startAutocomplete = new google.maps.places.Autocomplete(
+    document.getElementById('startingDestination'),
+    {
+      types: ['address'],
+      componentRestrictions: { 'country': ['us', 'ca', 'mx'] },
+      fields: ['place_id', 'geomery', 'name']
+    }
+  )
+  endAutocomplete = new google.maps.places.Autocomplete(
+    document.getElementById('endingDestination'),
+    {
+      types: ['address'],
+      componentRestrictions: { 'country': ['us', 'ca', 'mx'] },
+      fields: ['place_id', 'geomery', 'name']
+    }
+  )
+}
+
+
 
 //function to display error when user does not allow location
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -155,3 +185,6 @@ function callback(response, status) {
 }
 
 document.querySelector('#btn').addEventListener('click', calculateDistance);
+
+
+//function to generate places
