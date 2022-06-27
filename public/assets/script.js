@@ -50,6 +50,9 @@ function initMap() {
 
   //Adding the directions display onto the map
   directionsDisplay.setMap(map);
+
+  //initialize the autocomplete
+  initAutocomplete();
 }
 
 //Function to generate route of trave
@@ -74,34 +77,35 @@ function generateRoute(event) {
   });
 }
 
+// Call the generateRoute function when the user clicks the button
 document.querySelector('#btn').addEventListener('click', generateRoute);
 
-//function to generate a request to the places API.
-function generatePlaces(event) {
-  event.preventDefault();
+//variables to hold the autocomplete objects
+let startAutocomplete;
+let endAutocomplete;
 
-  //Initialize the places service object
-  let service = new google.maps.places.PlacesService(map);
-
-  let request = {
-    location: document.querySelector('#endingDestination').value,
-    radius: '5000',
-    type: ['tourist_attraction']
-  }
-
-  service.nearbySearch(request, createMarkers);
-}
-
-//function to create markers
-function createMarkers(results, status) {
-  if (status == google.maps.places.PlacesServiceStatus.OK) {
-    for (var i = 0; results.length; i++) {
-      console.log(results[i]);
+//function to intialize autocomplete for start/ending destination input fields.
+function initAutocomplete() {
+  //initializing the Place autocomplete services
+  startAutocomplete = new google.maps.places.Autocomplete(
+    document.getElementById('startingDestination'),
+    {
+      types: ['address'],
+      componentRestrictions: { 'country': ['us', 'ca', 'mx'] },
+      fields: ['place_id', 'geomery', 'name']
     }
-  }
+  )
+  endAutocomplete = new google.maps.places.Autocomplete(
+    document.getElementById('endingDestination'),
+    {
+      types: ['address'],
+      componentRestrictions: { 'country': ['us', 'ca', 'mx'] },
+      fields: ['place_id', 'geomery', 'name']
+    }
+  )
 }
 
-document.querySelector('#btn').addEventListener('click', generatePlaces);
+
 
 //function to display error when user does not allow location
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
