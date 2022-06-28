@@ -277,15 +277,10 @@ function createMarker(result) {
   let marker = new google.maps.Marker({
     map: map,
     position: resultLocation,
-    // label: {
-    //   text: result.name,
-    //   color: 'white',
-    //   fontFamily: 'sans-serif',
-    // }
-    // icon: {
-    //   url: "https://img.icons8.com/ios/50/000000/map-marker--v1.png",
-    //   scaledSize: new google.maps.Size(38, 38)
-    // }
+    icon: {
+      url: "https://img.icons8.com/stickers/100/000000/where.png",
+      scaledSize: new google.maps.Size(40, 40)
+    }
   });
 
   let resultInfoWindow = new google.maps.InfoWindow({
