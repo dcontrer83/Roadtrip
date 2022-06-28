@@ -54,6 +54,8 @@ function initMap() {
   //initialize the autocomplete
   initAutocomplete();
 
+  //Adding the Places API
+  placesService = new google.maps.places.PlacesService(map);
 }
 
 //Function to generate route of trave
