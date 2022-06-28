@@ -235,3 +235,22 @@ function createCircle(event) {
 
 document.querySelector('#btn').addEventListener('click', createCircle);
 
+function getPlaces(event) {
+  event.preventDefault();
+
+  let location = document.getElementById('#endingDestination').value;
+
+  let request = {
+    location: location,
+    radius: 8047,
+    type: ['tourist_attraction']
+  }
+
+  placesService.nearbySearch(request, function (results, status) {
+    if (status == google.maps.places.PlacesServiceSatus.OK) {
+      for (let i = 0; i < results.length; i++) {
+        createMarker(results[i]);
+      }
+    }
+  });
+}
