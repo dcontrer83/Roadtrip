@@ -53,6 +53,43 @@ function initMap() {
 
   //initialize the autocomplete
   initAutocomplete();
+
+  //testing out markers
+  function getPlaces(event) {
+    event.preventDefault();
+
+    //retrieve the end destination from the input
+    let location = document.querySelector('#endingDestination').value;
+
+
+    let request = {
+      location: location,
+      radius: 20000,
+      type: ['restaurant']
+    }
+
+    console.log(request);
+
+    let service = new google.maps.places.PlacesService(map);
+
+    service.nearbySearch(request, function (results, status) {
+      if (status == google.maps.places.PlacesServiceStatus.OK) {
+        console.log("test");
+        for (let i = 0; i < results.length; i++) {
+          let marker = new google.maps.Marker({
+            map: map,
+            position: results[i].geometry.location,
+            title: results[i].name,
+          });
+          google.maps.event.addListener(marker, "click", () => {
+            infowindow.setContent(reults[i].name || "");
+            infowindow.open(map);
+          });
+        }
+      }
+    });
+  }
+  document.querySelector('#btn').addEventListener('click', getPlaces);
 }
 
 //Function to generate route of trave
@@ -214,8 +251,9 @@ function createCircle(event) {
         fillOpacity: 0.35,
         map: map,
         center: { lat: latitude, lng: longitude },
-        radius: 20000,  //20k meters --> 12 miles
+        radius: 8047,  //8047 meters --> 5 miles
       });
+
       areaCircle.setMap(map);
     }
   });
