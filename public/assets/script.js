@@ -226,7 +226,7 @@ function createCircle(event) {
         fillOpacity: 0.35,
         map: map,
         center: { lat: latitude, lng: longitude },
-        radius: 1609,  //1609 meters --> 1 mile
+        radius: 8047,  //8047 meters --> 5 miles
       });
 
       areaCircle.setMap(map);
@@ -254,7 +254,7 @@ function getPlaces(event) {
 
       let request = {
         location: latlng,
-        radius: 1609,
+        radius: 8047,
         type: ['tourist_attraction']
       }
 
