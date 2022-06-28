@@ -264,11 +264,25 @@ function getPlaces(event) {
         console.log('test');
         if (status == 'OK') {
           for (let i = 0; i < results.length; i++) {
-            console.log(results[i]);
+            createMarker(results[i]);
           }
         }
       });
     }
   });
 }
+
+function createMarker(result) {
+  let resultLocation = result.geometry.location;
+  let marker = new google.maps.Marker({
+    map: map,
+    position: resultLocation
+  });
+
+  google.maps.event.addListener(marker, 'click', () => {
+    infoWindow.setContent(result.name);
+  })
+}
+
+
 document.querySelector('#btn').addEventListener('click', getPlaces);
