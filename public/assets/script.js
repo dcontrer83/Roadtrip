@@ -54,42 +54,6 @@ function initMap() {
   //initialize the autocomplete
   initAutocomplete();
 
-  //testing out markers
-  function getPlaces(event) {
-    event.preventDefault();
-
-    //retrieve the end destination from the input
-    let location = document.querySelector('#endingDestination').value;
-
-
-    let request = {
-      location: location,
-      radius: 20000,
-      type: ['restaurant']
-    }
-
-    console.log(request);
-
-    let service = new google.maps.places.PlacesService(map);
-
-    service.nearbySearch(request, function (results, status) {
-      if (status == google.maps.places.PlacesServiceStatus.OK) {
-        console.log("test");
-        for (let i = 0; i < results.length; i++) {
-          let marker = new google.maps.Marker({
-            map: map,
-            position: results[i].geometry.location,
-            title: results[i].name,
-          });
-          google.maps.event.addListener(marker, "click", () => {
-            infowindow.setContent(reults[i].name || "");
-            infowindow.open(map);
-          });
-        }
-      }
-    });
-  }
-  document.querySelector('#btn').addEventListener('click', getPlaces);
 }
 
 //Function to generate route of trave
@@ -224,9 +188,17 @@ function displayDistance(response, status) {
 document.querySelector('#btn').addEventListener('click', calculateDistance);
 
 
+//the circle object
+let areaCircle;
+
 //function to draw a circle around the end destination
 function createCircle(event) {
   event.preventDefault();
+
+  //clear the areaCircle prior to creating a new one
+  if (areaCircle) {
+    areaCircle.setMap(null);
+  }
 
   //create a geocoder object
   let geocoder = new google.maps.Geocoder();
@@ -243,7 +215,7 @@ function createCircle(event) {
       latitude = results[0].geometry.location.lat();
       longitude = results[0].geometry.location.lng();
 
-      let areaCircle = new google.maps.Circle({
+      areaCircle = new google.maps.Circle({
         strokeColor: '#457b9d',
         strokeOpacity: 0.8,
         strokeWeight: 2,
