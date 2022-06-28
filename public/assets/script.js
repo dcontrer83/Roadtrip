@@ -2,7 +2,7 @@
 //Google maps javascript
 // also added a geolocation functionality to find the user's current location
 // note: The user must enable the geolocation by clicking 'Allow' when it prompts
-let map, infoWindow, directionService, directionsDisplay;
+let map, infoWindow, directionService, directionsDisplay, placesService;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
@@ -232,3 +232,4 @@ function createCircle(event) {
 }
 
 document.querySelector('#btn').addEventListener('click', createCircle);
+
