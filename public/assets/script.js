@@ -56,6 +56,7 @@ function initMap() {
 
   //Adding the Places API
   placesService = new google.maps.places.PlacesService(map);
+
 }
 
 //Function to generate route of trave
@@ -225,7 +226,7 @@ function createCircle(event) {
         fillOpacity: 0.35,
         map: map,
         center: { lat: latitude, lng: longitude },
-        radius: 8047,  //8047 meters --> 5 miles
+        radius: 1609,  //1609 meters --> 1 mile
       });
 
       areaCircle.setMap(map);
@@ -238,19 +239,36 @@ document.querySelector('#btn').addEventListener('click', createCircle);
 function getPlaces(event) {
   event.preventDefault();
 
-  let location = document.getElementById('#endingDestination').value;
+  let location = document.getElementById('endingDestination').value;
 
-  let request = {
-    location: location,
-    radius: 8047,
-    type: ['tourist_attraction']
-  }
+  //create a geocoder object
+  let geocoder = new google.maps.Geocoder();
 
-  placesService.nearbySearch(request, function (results, status) {
-    if (status == google.maps.places.PlacesServiceSatus.OK) {
-      for (let i = 0; i < results.length; i++) {
-        createMarker(results[i]);
+  //use geocoder to get the latitude and longitude values
+  geocoder.geocode({ 'address': location }, function (results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      let latitude = results[0].geometry.location.lat();
+      let longitude = results[0].geometry.location.lng();
+
+      let latlng = new google.maps.LatLng(latitude, longitude);
+
+      let request = {
+        location: latlng,
+        radius: 1609,
+        type: ['tourist_attraction']
       }
+
+      console.log(request);
+
+      placesService.nearbySearch(request, function (results, status) {
+        console.log('test');
+        if (status == 'OK') {
+          for (let i = 0; i < results.length; i++) {
+            console.log(results[i]);
+          }
+        }
+      });
     }
   });
 }
+document.querySelector('#btn').addEventListener('click', getPlaces);
