@@ -187,4 +187,38 @@ function displayDistance(response, status) {
 document.querySelector('#btn').addEventListener('click', calculateDistance);
 
 
-//function to generate places
+//function to draw a circle around the end destination
+function createCircle(event) {
+  event.preventDefault();
+
+  //create a geocoder object
+  let geocoder = new google.maps.Geocoder();
+
+  //retrieve the end destination from the input
+  let location = document.querySelector('#endingDestination').value;
+
+  let latitude;
+  let longitude;
+
+  //use geocoder to get the latitude and longitude values
+  geocoder.geocode({ 'address': location }, function (results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      latitude = results[0].geometry.location.lat();
+      longitude = results[0].geometry.location.lng();
+
+      let areaCircle = new google.maps.Circle({
+        strokeColor: '#457b9d',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#a8dadc',
+        fillOpacity: 0.35,
+        map: map,
+        center: { lat: latitude, lng: longitude },
+        radius: 20000,  //20k meters --> 12 miles
+      });
+      areaCircle.setMap(map);
+    }
+  });
+}
+
+document.querySelector('#btn').addEventListener('click', createCircle);
