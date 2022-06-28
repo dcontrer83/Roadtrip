@@ -276,11 +276,24 @@ function createMarker(result) {
   let resultLocation = result.geometry.location;
   let marker = new google.maps.Marker({
     map: map,
-    position: resultLocation
+    position: resultLocation,
+    // label: {
+    //   text: result.name,
+    //   color: 'white',
+    //   fontFamily: 'sans-serif',
+    // }
+    // icon: {
+    //   url: "https://img.icons8.com/ios/50/000000/map-marker--v1.png",
+    //   scaledSize: new google.maps.Size(38, 38)
+    // }
   });
 
-  google.maps.event.addListener(marker, 'click', () => {
-    infoWindow.setContent(result.name);
+  let resultInfoWindow = new google.maps.InfoWindow({
+    content: result.name
+  })
+
+  marker.addListener('click', () => {
+    resultInfoWindow.open(map, marker);
   })
 }
 
