@@ -49,6 +49,24 @@
 
   <div id="textImg">Are We There Yet?</div>
 
+  <div class="dropdown">
+    <div class="dropdown-trigger">
+      <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+        <span>Dropdown button</span>
+        <span class="icon is-small">
+          <i class="fas fa-angle-down" aria-hidden="true"></i>
+        </span>
+      </button>
+    </div>
+    <div class="dropdown-menu" id="dropdown-menu" role="menu">
+      <div class="dropdown-content">
+        <a class="dropdown-item">
+          No search history
+        </a>
+      </div>
+    </div>
+  </div>
+
   <div id="containerInput">
     <input class="input is-rounded" type="text" placeholder="Rounded input" id="startingDestination">
     <input class="input is-rounded" type="text" placeholder="Rounded input" id="endingDestination">
@@ -57,6 +75,7 @@
 
   <!-- Google maps box -->
   <div id="map"></div>
+
 
   <textarea class="textBox" readonly id="distanceTravel">Distance in Miles: </textarea>
   <textarea class="textBox" readonly id="durationTravel">Duration in Minutes: : </textarea>

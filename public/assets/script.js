@@ -188,3 +188,67 @@ document.querySelector('#btn').addEventListener('click', calculateDistance);
 
 
 //function to generate places
+
+
+
+//initializes user history when the web page loads
+var historyList = [];
+historyList = JSON.parse(localStorage.getItem('userHistory'));
+
+createContents();
+
+function createContents() {
+  var dropDownContent = document.querySelector('.dropdown-content')
+  if (historyList) {
+    dropDownContent.firstChild.remove();
+    for (var i = 0; i < historyList.length; ++i) {
+      var content = document.createElement('a');
+      content.textContent = historyList[i].userStart + ', ' + historyList[i].userEnd;
+      content.setAttribute('class', 'dropdown-item');
+      dropDownContent.append(content);
+    }
+  } else {
+    return;
+  }
+}
+
+//store user inputs when 'Plan' button is clicked
+document.querySelector('#btn').addEventListener('click', storeUserInput);
+
+function storeUserInput() {
+  var start = document.getElementById('#startingDestination').value
+  var end =  document.getElementById('#endingDestination').value
+
+  var historyObj = {
+    userStart: start,
+    userEnd: end
+  }
+
+  if (!historyList) { //if the array is empty
+      historyList = [historyObj];
+      localStorage.setItem('userHistory', JSON.stringify(historyList));
+  } else { // if it's not empty
+    historyList.push(historyObj);
+    localStorage.setItem('userHistory', JSON.stringify(historyList))
+  }
+}
+
+
+//drop-up button for a history
+
+var dropDownEl = document.querySelector('.dropdown');
+
+if (!historyList) {
+  localStorage.getItem('userHistory')
+}
+
+dropDownEl.addEventListener('click', getHistoryList);
+
+function getHistoryList(event) {
+    dropDownEl.classList.toggle("is-active");
+    
+    var dropDownContent = document.querySelector(".dropdown-content");
+
+
+
+}
