@@ -64,6 +64,25 @@ button.custom-map-control-button[style] {
     width: 100%;
 }
 
+/* marker headers on map */
+.marker-header {
+    font-size: 100%;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bolder;
+}
+
+/* Div containing the image for the info window */
+.info-box {
+    display: flex;
+    justify-content: center;
+}
+
+/* image within the info window */
+.infoImg {
+    width: 100%;
+    height: auto;
+}
+
 .textBox {
     text-align: center;
     height: 40px;
@@ -92,6 +111,7 @@ button.custom-map-control-button[style] {
     animation-name: fade;
     animation-duration: 1.5s;
 }
+
 
 @keyframes fade {
     from {

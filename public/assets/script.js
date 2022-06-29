@@ -2,7 +2,7 @@
 //Google maps javascript
 // also added a geolocation functionality to find the user's current location
 // note: The user must enable the geolocation by clicking 'Allow' when it prompts
-let map, infoWindow, directionService, directionsDisplay;
+let map, infoWindow, directionService, directionsDisplay, placesService;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
@@ -53,6 +53,10 @@ function initMap() {
 
   //initialize the autocomplete
   initAutocomplete();
+
+  //Adding the Places API
+  placesService = new google.maps.places.PlacesService(map);
+
 }
 
 //Function to generate route of trave
@@ -186,9 +190,157 @@ function displayDistance(response, status) {
 
 document.querySelector('#btn').addEventListener('click', calculateDistance);
 
+//the circle object
+let areaCircle;
 
 //function to generate places
 
+//function to draw a circle around the end destination
+function createCircle(event) {
+  event.preventDefault();
+
+  //clear the areaCircle prior to creating a new one
+  if (areaCircle) {
+    areaCircle.setMap(null);
+  }
+
+  //clear the previous markers
+  if (markersArray.length) {
+    clearMarkers(map);
+  }
+
+
+  //create a geocoder object
+  let geocoder = new google.maps.Geocoder();
+
+  //retrieve the end destination from the input
+  let location = document.querySelector('#endingDestination').value;
+
+  let latitude;
+  let longitude;
+
+  //use geocoder to get the latitude and longitude values
+  geocoder.geocode({ 'address': location }, function (results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      latitude = results[0].geometry.location.lat();
+      longitude = results[0].geometry.location.lng();
+
+      areaCircle = new google.maps.Circle({
+        strokeColor: '#457b9d',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#a8dadc',
+        fillOpacity: 0.35,
+        map: map,
+        center: { lat: latitude, lng: longitude },
+        radius: 8047,  //8047 meters --> 5 miles
+      });
+
+      areaCircle.setMap(map);
+    }
+  });
+}
+
+document.querySelector('#btn').addEventListener('click', createCircle);
+
+function getPlaces(event) {
+  event.preventDefault();
+
+  let location = document.getElementById('endingDestination').value;
+
+  //create a geocoder object
+  let geocoder = new google.maps.Geocoder();
+
+  //use geocoder to get the latitude and longitude values
+  geocoder.geocode({ 'address': location }, function (results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      let latitude = results[0].geometry.location.lat();
+      let longitude = results[0].geometry.location.lng();
+
+      let latlng = new google.maps.LatLng(latitude, longitude);
+
+      let request = {
+        location: latlng,
+        radius: 8047,
+        type: ['tourist_attraction']
+      }
+
+      console.log(request);
+
+      placesService.nearbySearch(request, function (results, status) {
+        console.log('test');
+        if (status == 'OK') {
+          for (let i = 0; i < results.length; i++) {
+            createMarker(results[i]);
+            address = "";
+          }
+        }
+      });
+    }
+  });
+}
+
+// Create a marker array to store markers
+let markersArray = [] || null;
+
+//function which hides the markers and clears the marksers array
+function clearMarkers(map) {
+  for (let i = 0; i < markersArray.length; i++) {
+    markersArray[i].setMap(null);
+  }
+  markersArray = [];
+}
+
+function createMarker(result) {
+  //retrieve the lat/long values from the result.
+  let resultLocation = result.geometry.location;
+
+  //retrieve the placeID
+  let placeID = result.place_id;
+
+  //create a marker
+  let marker = new google.maps.Marker({
+    map: map,
+    position: resultLocation,
+    animation: google.maps.Animation.BOUNCE,
+    icon: {
+      url: "https://img.icons8.com/stickers/100/000000/where.png",
+      scaledSize: new google.maps.Size(40, 40)
+    }
+  });
+
+  //add the created marker to the markers array.
+  markersArray.push(marker);
+
+  //get the URL of the photo within the result
+  let photo = result.photos[0].getUrl({ maxWidth: 200, maxHeight: 200 });
+
+  //generate the content string
+  let contentString =
+    `<h1 class="marker-header"> ${result.name}</h1> \
+    <div class="info-box"> \
+        <img class="infoImg" src="${photo}"> \
+    </div>`;
+
+  //create an info window for each marker
+  let resultInfoWindow = new google.maps.InfoWindow({
+    content: contentString
+  })
+
+  //When a user clicks on a marker, open the info window
+  marker.addListener('click', () => {
+    resultInfoWindow.open(map, marker);
+  })
+
+  //Stop the bouncing animation after 2.5 seconds
+  setTimeout(function () {
+    marker.setAnimation(null);
+  }, 2500);
+
+}
+
+
+document.querySelector('#btn').addEventListener('click', getPlaces);
 
 
 //initializes user history when the web page loads
