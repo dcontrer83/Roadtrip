@@ -190,7 +190,6 @@ function displayDistance(response, status) {
 
 document.querySelector('#btn').addEventListener('click', calculateDistance);
 
-
 //the circle object
 let areaCircle;
 
@@ -202,6 +201,12 @@ function createCircle(event) {
   if (areaCircle) {
     areaCircle.setMap(null);
   }
+
+  //clear the previous markers
+  if (markersArray.length) {
+    clearMarkers(map);
+  }
+
 
   //create a geocoder object
   let geocoder = new google.maps.Geocoder();
@@ -272,7 +277,16 @@ function getPlaces(event) {
   });
 }
 
+// Create a marker array to store markers
+let markersArray = [] || null;
 
+//function which hides the markers and clears the marksers array
+function clearMarkers(map) {
+  for (let i = 0; i < markersArray.length; i++) {
+    markersArray[i].setMap(null);
+    marksersArray = [];
+  }
+}
 
 function createMarker(result) {
   //retrieve the lat/long values from the result.
@@ -280,8 +294,6 @@ function createMarker(result) {
 
   //retrieve the placeID
   let placeID = result.place_id;
-
-  console.log(placeID);
 
   //create a marker
   let marker = new google.maps.Marker({
@@ -293,6 +305,8 @@ function createMarker(result) {
       scaledSize: new google.maps.Size(40, 40)
     }
   });
+
+  markersArray.push(marker);
 
   let photo = result.photos[0].getUrl({ maxWidth: 200, maxHeight: 200 });
 
