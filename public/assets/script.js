@@ -346,13 +346,12 @@ document.querySelector('#btn').addEventListener('click', getPlaces);
 //initializes user history when the web page loads
 var historyList = [];
 historyList = JSON.parse(localStorage.getItem('userHistory'));
-
 createContents();
-
 function createContents() {
   var dropDownContent = document.querySelector('.dropdown-content')
+  // console.log(dropDownContent.firstElementChild);
   if (historyList) {
-    dropDownContent.firstChild.remove();
+    // dropDownContent.firstElementChild.remove();
     for (var i = 0; i < historyList.length; ++i) {
       var content = document.createElement('a');
       content.textContent = historyList[i].userStart + ', ' + historyList[i].userEnd;
@@ -365,16 +364,20 @@ function createContents() {
 }
 
 //store user inputs when 'Plan' button is clicked
-document.querySelector('#btn').addEventListener('click', storeUserInput);
 
-function storeUserInput() {
-  var start = document.getElementById('#startingDestination').value
-  var end =  document.getElementById('#endingDestination').value
+function storeUserInput(event) {
+  event.preventDefault();
+  var start = document.getElementById('startingDestination').value;
+  var end =  document.getElementById('endingDestination').value;
 
   var historyObj = {
     userStart: start,
     userEnd: end
   }
+
+  // if (dropDownContent.firstChild.textContent === "No Search History") {
+  //   dropDownContent.firstChild.remove();
+  // }
 
   if (!historyList) { //if the array is empty
       historyList = [historyObj];
@@ -383,24 +386,19 @@ function storeUserInput() {
     historyList.push(historyObj);
     localStorage.setItem('userHistory', JSON.stringify(historyList))
   }
+  createContents();
 }
 
+document.querySelector('#btn').addEventListener('click', storeUserInput);
 
-//drop-up button for a history
+
+//drop-down button for a history
 
 var dropDownEl = document.querySelector('.dropdown');
-
-if (!historyList) {
-  localStorage.getItem('userHistory')
-}
 
 dropDownEl.addEventListener('click', getHistoryList);
 
 function getHistoryList(event) {
     dropDownEl.classList.toggle("is-active");
-    
-    var dropDownContent = document.querySelector(".dropdown-content");
-
-
 
 }
