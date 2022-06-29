@@ -8,6 +8,7 @@
 
 #textImg {
     position: absolute;
+    z-index: 1;
     top: 69px;
     right: 93px;
     font-family: 'Montserrat', sans-serif;
@@ -18,13 +19,17 @@
 
 #containerInput {
     display: flex;
+    padding-left: 50px;
+    padding-right: 50px;
 }
 
 
 /* Google maps CSS */
 #map {
     height: 75%;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
+    margin-left: 50px;
+    margin-right: 50px;
 }
 
 html,
@@ -64,10 +69,24 @@ button.custom-map-control-button[style] {
     width: 100%;
 }
 
-.textBox {
+#distanceTravel {
+    min-width: 0px;
+    font-size: 13px;
     text-align: center;
+    min-height: 0px;
     height: 40px;
     width: 100%;
+    margin-bottom: 10px;
+}
+
+#durationTravel {
+    min-width: 0px;
+    font-size: 13px;
+    text-align: center;
+    min-height: 0px;
+    height: 40px;
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 /* for slideshow and images in slideshow*/
@@ -77,8 +96,8 @@ button.custom-map-control-button[style] {
 
 .roadTripImg {
     vertical-align: middle;
-    width: 100%;
-    height: 865px;
+    width: 100vw;
+    height: 60vh;
 }
 
 /* Slideshow container */
@@ -101,4 +120,22 @@ button.custom-map-control-button[style] {
     to {
         opacity: 1
     }
+}
+
+#hero-body {
+    padding: 10px;
+    padding-right: 50px;
+    padding-left: 50px;
+}
+
+.input {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+#containerDistanceDuration {
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+    margin-right: 50px;
 }
