@@ -289,9 +289,11 @@ function createMarker(result) {
     }
   });
 
+  let contentString = `<h1 class="marker-header"> ${result.name}</h1>`
+
   //create an info window for each marker
   let resultInfoWindow = new google.maps.InfoWindow({
-    content: result.name
+    content: contentString
   })
 
   //When a user clicks on a marker, open the info window

@@ -64,6 +64,13 @@ button.custom-map-control-button[style] {
     width: 100%;
 }
 
+/* marker headers on map */
+.marker-header {
+    font-size: 100%;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bolder;
+}
+
 .textBox {
     text-align: center;
     height: 40px;
@@ -92,6 +99,7 @@ button.custom-map-control-button[style] {
     animation-name: fade;
     animation-duration: 1.5s;
 }
+
 
 @keyframes fade {
     from {
