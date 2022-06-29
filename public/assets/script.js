@@ -278,6 +278,11 @@ function createMarker(result) {
   //retrieve the lat/long values from the result.
   let resultLocation = result.geometry.location;
 
+  //retrieve the placeID
+  let placeID = result.place_id;
+
+  console.log(placeID);
+
   //create a marker
   let marker = new google.maps.Marker({
     map: map,
@@ -289,7 +294,13 @@ function createMarker(result) {
     }
   });
 
-  let contentString = `<h1 class="marker-header"> ${result.name}</h1>`
+  let photo = result.photos[0].getUrl({ maxWidth: 200, maxHeight: 200 });
+
+  let contentString =
+    `<h1 class="marker-header"> ${result.name}</h1> \
+    <div class="img-box"> \
+        <img class="infoImg" src="${photo}"> \
+    </div>`;
 
   //create an info window for each marker
   let resultInfoWindow = new google.maps.InfoWindow({
