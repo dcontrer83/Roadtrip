@@ -270,6 +270,7 @@ function getPlaces(event) {
         if (status == 'OK') {
           for (let i = 0; i < results.length; i++) {
             createMarker(results[i]);
+            address = "";
           }
         }
       });
@@ -284,7 +285,7 @@ let markersArray = [] || null;
 function clearMarkers(map) {
   for (let i = 0; i < markersArray.length; i++) {
     markersArray[i].setMap(null);
-    marksersArray = [];
+    markersArray = [];
   }
 }
 
@@ -306,13 +307,16 @@ function createMarker(result) {
     }
   });
 
+  //add the created marker to the markers array.
   markersArray.push(marker);
 
+  //get the URL of the photo within the result
   let photo = result.photos[0].getUrl({ maxWidth: 200, maxHeight: 200 });
 
+  //generate the content string
   let contentString =
     `<h1 class="marker-header"> ${result.name}</h1> \
-    <div class="img-box"> \
+    <div class="info-box"> \
         <img class="infoImg" src="${photo}"> \
     </div>`;
 
@@ -330,6 +334,7 @@ function createMarker(result) {
   setTimeout(function () {
     marker.setAnimation(null);
   }, 2500);
+
 }
 
 

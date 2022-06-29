@@ -72,7 +72,7 @@ button.custom-map-control-button[style] {
 }
 
 /* Div containing the image for the info window */
-.img-box {
+.info-box {
     display: flex;
     justify-content: center;
 }
