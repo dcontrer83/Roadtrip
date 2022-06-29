@@ -272,24 +272,37 @@ function getPlaces(event) {
   });
 }
 
+
+
 function createMarker(result) {
+  //retrieve the lat/long values from the result.
   let resultLocation = result.geometry.location;
+
+  //create a marker
   let marker = new google.maps.Marker({
     map: map,
     position: resultLocation,
+    animation: google.maps.Animation.BOUNCE,
     icon: {
       url: "https://img.icons8.com/stickers/100/000000/where.png",
       scaledSize: new google.maps.Size(40, 40)
     }
   });
 
+  //create an info window for each marker
   let resultInfoWindow = new google.maps.InfoWindow({
     content: result.name
   })
 
+  //When a user clicks on a marker, open the info window
   marker.addListener('click', () => {
     resultInfoWindow.open(map, marker);
   })
+
+  //Stop the bouncing animation after 2.5 seconds
+  setTimeout(function () {
+    marker.setAnimation(null);
+  }, 2500);
 }
 
 
