@@ -8,8 +8,9 @@
 
 #textImg {
     position: absolute;
-    top: 69px;
-    right: 93px;
+    z-index: 1;
+    top: 55px;
+    left: 106px;
     font-family: 'Montserrat', sans-serif;
     font-size: 50px;
     color: red;
@@ -18,20 +19,27 @@
 
 #containerInput {
     display: flex;
+    padding-left: 50px;
+    padding-right: 50px;
 }
 
 
 /* Google maps CSS */
 #map {
     height: 75%;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
+    margin-left: 50px;
+    margin-right: 50px;
 }
 
 html,
 body {
+    overflow: auto;
     height: 100%;
     margin: 0;
     padding: 0;
+    background-image: url("./images/mohammad-alizade-S5uV7ro4UPY-unsplash.jpg");
+    background-size: contain;
 }
 
 /* Location box CSS */
@@ -64,6 +72,26 @@ button.custom-map-control-button[style] {
     width: 100%;
 }
 
+#distanceTravel {
+    min-width: 0px;
+    font-size: 13px;
+    text-align: center;
+    min-height: 0px;
+    height: 40px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#durationTravel {
+    min-width: 0px;
+    font-size: 13px;
+    text-align: center;
+    min-height: 0px;
+    height: 40px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
 /* marker headers on map */
 .marker-header {
     font-size: 100%;
@@ -83,12 +111,6 @@ button.custom-map-control-button[style] {
     height: auto;
 }
 
-.textBox {
-    text-align: center;
-    height: 40px;
-    width: 100%;
-}
-
 /* for slideshow and images in slideshow*/
 .mySlides {
     display: none;
@@ -96,8 +118,8 @@ button.custom-map-control-button[style] {
 
 .roadTripImg {
     vertical-align: middle;
-    width: 100%;
-    height: 865px;
+    width: 100vw;
+    height: 60vh;
 }
 
 /* Slideshow container */
@@ -121,4 +143,23 @@ button.custom-map-control-button[style] {
     to {
         opacity: 1
     }
+}
+
+#hero-body {
+    position: relative;
+    padding: 10px;
+    padding-right: 50px;
+    padding-left: 50px;
+}
+
+.input {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+#containerDistanceDuration {
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+    margin-right: 50px;
 }
