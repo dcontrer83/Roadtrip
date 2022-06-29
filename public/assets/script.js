@@ -285,8 +285,8 @@ let markersArray = [] || null;
 function clearMarkers(map) {
   for (let i = 0; i < markersArray.length; i++) {
     markersArray[i].setMap(null);
-    markersArray = [];
   }
+  markersArray = [];
 }
 
 function createMarker(result) {
