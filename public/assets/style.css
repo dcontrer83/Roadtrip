@@ -208,7 +208,3 @@ button.custom-map-control-button[style] {
 .hidden {
     display: none !important;
 }
-
-.show {
-    display: block;
-}

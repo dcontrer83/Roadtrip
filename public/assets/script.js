@@ -4,6 +4,7 @@
 let map, infoWindow, directionService, directionsDisplay, placesService;
 
 //Reference to the button element
+let planBtn = document.querySelector('#btn');
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
@@ -83,7 +84,7 @@ function generateRoute(event) {
 }
 
 // Call the generateRoute function when the user clicks the button
-document.querySelector('#btn').addEventListener('click', generateRoute);
+planBtn.addEventListener('click', generateRoute);
 
 //variables to hold the autocomplete objects
 let startAutocomplete;
@@ -168,20 +169,14 @@ function displayDistance(response, status) {
   }
   else {
     var origin = response.originAddresses[0];
-    console.log(origin);
     var destination = response.destinationAddresses[0];
-    console.log(destination);
     if (response.rows[0].elements[0].status === "ZERO_RESULTS") {
       document.getElementById("distanceTravel").textContent = "Better get on a plane since there is no road between your two locations!";
     }
     else {
       var distance = response.rows[0].elements[0].distance;
-      console.log(distance);
       var duration = response.rows[0].elements[0].duration;
-      console.log(duration);
-      console.log(response.rows[0].elements[0].distance);
       var distance_in_mile = distance.value / 1609.34;
-      console.log(distance_in_mile);
       var duration_text = duration.text;
       document.getElementById("distanceTravel").textContent = "Distance in Miles: " + distance_in_mile.toFixed(2);
       document.getElementById("durationTravel").textContent = "Duration in Minutes: " + duration_text;
@@ -189,12 +184,12 @@ function displayDistance(response, status) {
   }
 }
 
-document.querySelector('#btn').addEventListener('click', calculateDistance);
+planBtn.addEventListener('click', calculateDistance);
 
 //the circle object
 let areaCircle;
 
-//function to draw a circle around the end destination
+//function to draw a circle around the end destination and initialize the page
 function createCircle(event) {
   event.preventDefault();
 
@@ -207,7 +202,6 @@ function createCircle(event) {
   if (markersArray.length) {
     clearMarkers(map);
   }
-
 
   //create a geocoder object
   let geocoder = new google.maps.Geocoder();
@@ -240,7 +234,7 @@ function createCircle(event) {
   });
 }
 
-document.querySelector('#btn').addEventListener('click', createCircle);
+planBtn.addEventListener('click', createCircle);
 
 function getPlaces(event) {
   event.preventDefault();
@@ -264,14 +258,10 @@ function getPlaces(event) {
         type: ['tourist_attraction']
       }
 
-      console.log(request);
-
       placesService.nearbySearch(request, function (results, status) {
-        console.log('test');
         if (status == 'OK') {
           for (let i = 0; i < results.length; i++) {
             createMarker(results[i]);
-            address = "";
           }
         }
       });
@@ -351,8 +341,53 @@ const topFiveList = document.querySelector('#topFiveList');
 function displayList(event) {
   event.preventDefault();
 
-  topFiveListContianer.addClass('show');
+  //Display the List Div
+  topFiveListContianer.classList.remove('hidden');
+
+  //Get the ending location
+  let location = document.getElementById('endingDestination').value;
+
+  //create a geocoder object
+  let geocoder = new google.maps.Geocoder();
+
+  //use geocoder to get the latitude and longitude values
+  geocoder.geocode({ 'address': location }, function (results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      // Get the lat and long data values from the end destination.
+      let latitude = results[0].geometry.location.lat();
+      let longitude = results[0].geometry.location.lng();
+
+      //Create a LatLng object for our request.
+      let latlng = new google.maps.LatLng(latitude, longitude);
+
+      let request = {
+        location: latlng,
+        radius: 8047,
+        type: ['tourist_attraction']
+      }
+
+      //Use the nearby search function to create a list of top places
+      placesService.nearbySearch(request, function (results, status) {
+        console.log('test');
+        if (status == 'OK') {
+          //sort results by rating
+          results.sort((resultA, resultB) => {
+            return resultA.rating - resultB.rating;
+          });
+
+          //Results array is in ascending order, so change to descending order.
+          //Do this to ensure the top 5 results are at the front of the array.
+          results.reverse();
+
+          for (let i = 0; i < 5; i++) {
+            // createListItem(results[i])
+            console.log(results[i]);
+          }
+        }
+      });
+    }
+  });
 }
 
 //add event listener
-document
+planBtn.addEventListener('click', displayList);
