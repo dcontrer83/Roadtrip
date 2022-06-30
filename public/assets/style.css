@@ -196,3 +196,13 @@ button.custom-map-control-button[style] {
     justify-content: center;
     margin-top: 1%
 }
+
+.t5ListItemContainer {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.t5LocationHeader {
+    font-size: 200%;
+}
