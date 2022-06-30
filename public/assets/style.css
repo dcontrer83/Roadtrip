@@ -6,8 +6,6 @@
     position: relative;
 }
 
-
-
 #textImg {
     position: absolute;
     top: 55px;
@@ -205,4 +203,12 @@ button.custom-map-control-button[style] {
 
 .t5LocationHeader {
     font-size: 200%;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.show {
+    display: block;
 }

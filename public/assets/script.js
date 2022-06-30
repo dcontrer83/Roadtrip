@@ -1,8 +1,9 @@
-
 //Google maps javascript
 // also added a geolocation functionality to find the user's current location
 // note: The user must enable the geolocation by clicking 'Allow' when it prompts
 let map, infoWindow, directionService, directionsDisplay, placesService;
+
+//Reference to the button element
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
@@ -337,5 +338,21 @@ function createMarker(result) {
 
 }
 
-
 document.querySelector('#btn').addEventListener('click', getPlaces);
+
+
+//Refernce to the top 5 list contianer div
+const topFiveListContianer = document.querySelector('#topFiveContainer');
+
+//Reference to the top 5 list ul
+const topFiveList = document.querySelector('#topFiveList');
+
+//Function to display the top 5 list container
+function displayList(event) {
+  event.preventDefault();
+
+  topFiveListContianer.addClass('show');
+}
+
+//add event listener
+document
