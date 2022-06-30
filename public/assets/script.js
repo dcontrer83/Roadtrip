@@ -337,9 +337,13 @@ const topFiveListContianer = document.querySelector('#topFiveContainer');
 //Reference to the top 5 list ul
 const topFiveList = document.querySelector('#topFiveList');
 
+//Function to create list items
+
 //Function to display the top 5 list container
 function displayList(event) {
   event.preventDefault();
+
+  //TODO: IF THERE ARE PREVIOUS ITEMS IN THE LIST, REMOVE THEM
 
   //Display the List Div
   topFiveListContianer.classList.remove('hidden');
