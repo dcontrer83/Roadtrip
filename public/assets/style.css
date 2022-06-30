@@ -6,6 +6,8 @@
     position: relative;
 }
 
+
+
 #textImg {
     position: absolute;
     top: 55px;
@@ -164,4 +166,33 @@ button.custom-map-control-button[style] {
     flex-direction: column;
     margin-left: 50px;
     margin-right: 50px;
+}
+
+/* Styles for the top 5 list */
+#topFiveContainer {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 50px;
+    margin-right: 50px;
+    border-radius: 3px;
+    margin-bottom: 2%;
+}
+
+#topFiveHeader {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    padding: 2%;
+    margin-bottom: 0;
+    border-bottom: 1px solid black;
+}
+
+#topFiveList {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 1%
 }
