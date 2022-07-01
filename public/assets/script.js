@@ -346,16 +346,20 @@ function createListItems(result) {
 
   let request = {
     placeId: placeID,
-    fields: ['name', 'rating', 'formatted_address', 'photos',]
+    fields: ['name', 'rating', 'formatted_address', 'photos']
   }
 
   //create a service object
   service = new google.maps.places.PlacesService(map);
 
   //use service.getDetails() to recieve the details.
-  service.getDetails(request, function (placeResult, status) {
+  service.getDetails(request, function (result, status) {
     if (status == 'OK') {
-      console.log(placeResult);
+      console.log(result);
+      let placeAddress = result.formatted_address;
+      let placeName = result.name;
+      let rating = result.rating;
+      let photo = result.photos[0].getUrl({ maxWidth: 200, maxHeight: 200 });
     }
   })
 
