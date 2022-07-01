@@ -339,7 +339,7 @@ const topFiveList = document.querySelector('#topFiveList');
 
 //TODO: Function to create list items
 function createListItems(result) {
-
+  //use service.getDetails() to recieve the details.
 }
 
 //Function to display the top 5 list container
