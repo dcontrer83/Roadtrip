@@ -361,7 +361,7 @@ function createListItems(result) {
       let rating = result.rating;
       let totalRatings = result.user_ratings_total;
       console.log(totalRatings);
-      let photo = result.photos[0].getUrl({ maxWidth: 300, maxHeight: 300 });
+      let photo = result.photos[0].getUrl({ maxWidth: 500, maxHeight: 500 });
 
       //create a list element
       let li = document.createElement('li');
@@ -377,15 +377,25 @@ function createListItems(result) {
       h3.classList.add("t5LocationHeader");
       liContainer.appendChild(h3);
 
-      //create the rating paragraph
-      let ratingPara = document.createElement('p');
-      ratingPara.textContent = `Rating: ${rating} out of ${totalRatings} total reviews.`;
-      ratingPara.classList.add('ratingPara');
-      liContainer.appendChild(ratingPara);
+      //create the rating paragraph if data exists
+      if (rating) {
+        let ratingPara = document.createElement('p');
+        ratingPara.textContent = `Rating: ${rating}`;
+        ratingPara.classList.add('ratingPara');
+        liContainer.appendChild(ratingPara);
+      }
+
+      //create the total ratings paragraph if data exists.
+      if (totalRatings) {
+        let totalRatingsPara = document.createElement('p');
+        totalRatingsPara.textContent = `Total Reviews: ${totalRatings}`;
+        totalRatingsPara.classList.add('totalRatingPara');
+        liContainer.appendChild(totalRatingsPara);
+      }
 
       //create the address paragraph
       let addressPara = document.createElement('p');
-      addressPara.textContent = `Address: ${placeAddress}`;
+      addressPara.textContent = `Address: ${placeAddress} `;
       addressPara.classList.add('addressPara');
       liContainer.appendChild(addressPara);
 
