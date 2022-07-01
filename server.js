@@ -13,10 +13,6 @@ dotenv.config();
 //Render all static files folder
 app.use(express.static('public'));
 
-//Display index.html page when user enters the homepage
-router.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname + '/public/index.html'));
-})
 
 //create server at port 3000
 //changed 3000 -> PORT.
