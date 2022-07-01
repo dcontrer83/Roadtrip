@@ -169,7 +169,7 @@ button.custom-map-control-button[style] {
 
 /* Styles for the top 5 list */
 #topFiveContainer {
-    background-color: #fefae0;
+    background-color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
