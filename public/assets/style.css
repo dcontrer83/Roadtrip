@@ -197,15 +197,19 @@ button.custom-map-control-button[style] {
     margin-top: 1%
 }
 
+/* Container div for the top 5 list items */
 .t5ListItemContainer {
     display: flex;
     flex-direction: column;
     font-family: 'Montserrat', sans-serif;
+    text-align: center;
 }
 
+/* Header for the top 5 list items */
 .t5LocationHeader {
     font-size: 200%;
 }
+
 
 .hidden {
     display: none !important;

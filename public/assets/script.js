@@ -380,17 +380,21 @@ function createListItems(result) {
       //create the rating paragraph
       let ratingPara = document.createElement('p');
       ratingPara.textContent = `Rating: ${rating} out of ${totalRatings} total reviews.`;
+      ratingPara.classList.add('ratingPara');
       liContainer.appendChild(ratingPara);
 
       //create the address paragraph
       let addressPara = document.createElement('p');
-      addressPara.textContent = placeAddress;
+      addressPara.textContent = `Address: ${placeAddress}`;
+      addressPara.classList.add('addressPara');
       liContainer.appendChild(addressPara);
 
       //create a photo container div
       let placePhotoContainer = document.createElement('div');
+      placePhotoContainer.classList.add('placePhotoContainer');
       let img = document.createElement('img');
       img.setAttribute('src', photo);
+      img.classList.add('placePhoto');
       placePhotoContainer.appendChild(img);
       liContainer.appendChild(placePhotoContainer);
 
