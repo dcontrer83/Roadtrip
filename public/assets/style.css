@@ -24,7 +24,6 @@
     padding-right: 50px;
 }
 
-
 /* Google maps CSS */
 #map {
     height: 75%;
@@ -170,7 +169,7 @@ button.custom-map-control-button[style] {
 
 /* Styles for the top 5 list */
 #topFiveContainer {
-    background-color: white;
+    background-color: #fefae0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -215,11 +214,12 @@ button.custom-map-control-button[style] {
 /* Header for the top 5 list items */
 .t5LocationHeader {
     font-size: 200%;
+    font-weight: bold;
 }
 
 /* Paragraph for rating */
 .ratingPara {
-    font-size: 125%;
+    font-size: 140%;
 }
 
 /* Paragraph for rating total */

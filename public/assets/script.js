@@ -395,7 +395,7 @@ function createListItems(result) {
 
       //create the address paragraph
       let addressPara = document.createElement('p');
-      addressPara.textContent = `Address: ${placeAddress} `;
+      addressPara.textContent = placeAddress;
       addressPara.classList.add('addressPara');
       liContainer.appendChild(addressPara);
 
