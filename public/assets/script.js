@@ -1,3 +1,4 @@
+
 //Google maps javascript
 // also added a geolocation functionality to find the user's current location
 // note: The user must enable the geolocation by clicking 'Allow' when it prompts
@@ -340,6 +341,24 @@ const topFiveList = document.querySelector('#topFiveList');
 //TODO: Function to create list items
 function createListItems(result) {
   //use service.getDetails() to recieve the details.
+  //retrieving the placeID of the current place
+  let placeID = result.place_id;
+
+  let request = {
+    placeId: placeID,
+    fields: ['name', 'rating', 'formatted_address', 'photos',]
+  }
+
+  //create a service object
+  service = new google.maps.places.PlacesService(map);
+
+  //use service.getDetails() to recieve the details.
+  service.getDetails(request, function (placeResult, status) {
+    if (status == 'OK') {
+      console.log(placeResult);
+    }
+  })
+
 }
 
 //Function to display the top 5 list container
@@ -386,9 +405,16 @@ function displayList(event) {
           //Do this to ensure the top 5 results are at the front of the array.
           results.reverse();
 
+          //sort the ratings again in descending order;
+          //Prior to sorting again, the results array would no longer be sorted in descending order after reversing. 
+          //To fix this, we sort again in descending order.
+          results.sort((resultA, resultB) => {
+            return resultB.rating - resultA.rating;
+          });
+
           for (let i = 0; i < 5; i++) {
             // createListItem(results[i])
-            console.log(results[i]);
+            createListItems(results[i]);
           }
         }
       });
