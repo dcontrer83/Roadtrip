@@ -24,7 +24,6 @@
     padding-right: 50px;
 }
 
-
 /* Google maps CSS */
 #map {
     height: 75%;
@@ -179,6 +178,7 @@ button.custom-map-control-button[style] {
     margin-right: 50px;
     border-radius: 3px;
     margin-bottom: 2%;
+    padding-bottom: 1%;
 }
 
 #topFiveHeader {
@@ -194,17 +194,47 @@ button.custom-map-control-button[style] {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-top: 1%
+    margin-top: 1%;
 }
 
+/* Container div for the top 5 list items */
 .t5ListItemContainer {
     display: flex;
     flex-direction: column;
     font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    border-bottom: 1px solid black;
 }
 
+/* remove border from last child */
+.t5ListItemContainer:last-child {
+    border-bottom: none;
+}
+
+/* Header for the top 5 list items */
 .t5LocationHeader {
     font-size: 200%;
+    font-weight: bold;
+}
+
+/* Paragraph for rating */
+.ratingPara {
+    font-size: 140%;
+}
+
+/* Paragraph for rating total */
+.totalRatingPara {
+    font-size: 125%;
+}
+
+/* Paragraph for rating */
+.addressPara {
+    font-size: 125%;
+}
+
+/* Photo of the place */
+.placePhoto {
+    border-radius: 4px;
 }
 
 .hidden {
