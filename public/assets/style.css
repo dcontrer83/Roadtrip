@@ -8,12 +8,13 @@
 
 #textImg {
     position: absolute;
-    z-index: 1;
     top: 55px;
     left: 106px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 50px;
-    color: red;
+    z-index: 1;
+    font-family: 'Montserrat';
+    font-size: 3em;
+    font-weight: bolder;
+    color: #d68c45;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
@@ -30,6 +31,7 @@
     margin-bottom: 10px;
     margin-left: 50px;
     margin-right: 50px;
+    border-radius: 3px;
 }
 
 html,
@@ -121,6 +123,7 @@ button.custom-map-control-button[style] {
     vertical-align: middle;
     width: 100vw;
     height: 60vh;
+    border-radius: 3px;
 }
 
 /* Slideshow container */
@@ -163,4 +166,47 @@ button.custom-map-control-button[style] {
     flex-direction: column;
     margin-left: 50px;
     margin-right: 50px;
+}
+
+/* Styles for the top 5 list */
+#topFiveContainer {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 50px;
+    margin-right: 50px;
+    border-radius: 3px;
+    margin-bottom: 2%;
+}
+
+#topFiveHeader {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    padding: 2%;
+    margin-bottom: 0;
+    border-bottom: 1px solid black;
+}
+
+#topFiveList {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 1%
+}
+
+.t5ListItemContainer {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.t5LocationHeader {
+    font-size: 200%;
+}
+
+.hidden {
+    display: none !important;
 }
