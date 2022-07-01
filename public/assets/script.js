@@ -346,7 +346,7 @@ function createListItems(result) {
 
   let request = {
     placeId: placeID,
-    fields: ['name', 'rating', 'formatted_address', 'photos']
+    fields: ['name', 'rating', 'formatted_address', 'photos', "user_ratings_total"]
   }
 
   //create a service object
@@ -359,7 +359,42 @@ function createListItems(result) {
       let placeAddress = result.formatted_address;
       let placeName = result.name;
       let rating = result.rating;
-      let photo = result.photos[0].getUrl({ maxWidth: 200, maxHeight: 200 });
+      let totalRatings = result.user_ratings_total;
+      console.log(totalRatings);
+      let photo = result.photos[0].getUrl({ maxWidth: 300, maxHeight: 300 });
+
+      //create a list element
+      let li = document.createElement('li');
+      li.classList.add('topFiveListItem');
+
+      //create the container div
+      let liContainer = document.createElement('div');
+      liContainer.classList.add('t5ListItemContainer');
+
+      //create the header
+      let h3 = document.createElement('h3');
+      h3.textContent = placeName;
+      h3.classList.add("t5LocationHeader");
+      liContainer.appendChild(h3);
+
+      //create the rating paragraph
+      let ratingPara = document.createElement('p');
+      ratingPara.textContent = `Rating: ${rating} out of ${totalRatings} total reviews.`;
+      liContainer.appendChild(ratingPara);
+
+      //create the address paragraph
+      let addressPara = document.createElement('p');
+      addressPara.textContent = placeAddress;
+      liContainer.appendChild(addressPara);
+
+      //create a photo container div
+      let placePhotoContainer = document.createElement('div');
+      let img = document.createElement('img');
+      img.setAttribute('src', photo);
+      placePhotoContainer.appendChild(img);
+      liContainer.appendChild(placePhotoContainer);
+
+      topFiveList.appendChild(liContainer);
     }
   })
 
