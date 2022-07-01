@@ -418,7 +418,12 @@ function createListItems(result) {
 function displayList(event) {
   event.preventDefault();
 
-  //!!!!! TODO: IF THERE ARE PREVIOUS ITEMS IN THE LIST, REMOVE THEM !!!!!!
+  // Remove any previously listed locations
+  if (topFiveList.hasChildNodes()) {
+    while (topFiveList.firstChild) {
+      topFiveList.removeChild(topFiveList.firstChild);
+    }
+  }
 
   //Display the List Div
   topFiveListContianer.classList.remove('hidden');
