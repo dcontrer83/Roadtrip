@@ -167,20 +167,14 @@ function displayDistance(response, status) {
   }
   else {
     var origin = response.originAddresses[0];
-    console.log(origin);
     var destination = response.destinationAddresses[0];
-    console.log(destination);
     if (response.rows[0].elements[0].status === "ZERO_RESULTS") {
       document.getElementById("distanceTravel").textContent = "Better get on a plane since there is no road between your two locations!";
     }
     else {
       var distance = response.rows[0].elements[0].distance;
-      console.log(distance);
       var duration = response.rows[0].elements[0].duration;
-      console.log(duration);
-      console.log(response.rows[0].elements[0].distance);
       var distance_in_mile = distance.value / 1609.34;
-      console.log(distance_in_mile);
       var duration_text = duration.text;
       document.getElementById("distanceTravel").textContent = "Distance in Miles: " + distance_in_mile.toFixed(2);
       document.getElementById("durationTravel").textContent = "Duration in Minutes: " + duration_text;
@@ -265,7 +259,7 @@ function getPlaces(event) {
         type: ['tourist_attraction']
       }
 
-      console.log(request);
+      // console.log(request);
 
       placesService.nearbySearch(request, function (results, status) {
         console.log('test');
@@ -347,24 +341,21 @@ document.querySelector('#btn').addEventListener('click', getPlaces);
 var historyList = [];
 historyList = JSON.parse(localStorage.getItem('userHistory'));
 createContents();
+
+//creates the dropdown list based on local storage
 function createContents() {
-  var dropDownContent = document.querySelector('.dropdown-content')
-  // console.log(dropDownContent.firstElementChild);
+  var dropDownContent = document.querySelector('.dropdown-content');
   if (historyList) {
-    // dropDownContent.firstElementChild.remove();
     for (var i = 0; i < historyList.length; ++i) {
-      var content = document.createElement('a');
-      content.textContent = historyList[i].userStart + ', ' + historyList[i].userEnd;
-      content.setAttribute('class', 'dropdown-item');
-      dropDownContent.append(content);
+        addHistory(dropDownContent, i);
     }
+    console.log(dropDownContent.childElementCount);
   } else {
     return;
   }
 }
 
 //store user inputs when 'Plan' button is clicked
-
 function storeUserInput(event) {
   event.preventDefault();
   var start = document.getElementById('startingDestination').value;
@@ -374,22 +365,59 @@ function storeUserInput(event) {
     userStart: start,
     userEnd: end
   }
-
-  // if (dropDownContent.firstChild.textContent === "No Search History") {
-  //   dropDownContent.firstChild.remove();
-  // }
-
+  var dropDownContent = document.querySelector('.dropdown-content')
   if (!historyList) { //if the array is empty
       historyList = [historyObj];
       localStorage.setItem('userHistory', JSON.stringify(historyList));
   } else { // if it's not empty
-    historyList.push(historyObj);
-    localStorage.setItem('userHistory', JSON.stringify(historyList))
+    if (dropDownContent.childElementCount > 5) {
+      historyList.shift();
+      historyList.push(historyObj);
+      addHistory(dropDownContent, historyList.length - 1);
+      removeLastHistory(dropDownContent);
+      localStorage.setItem('userHistory', JSON.stringify(historyList))
+    } else {
+      historyList.push(historyObj);
+      addHistory(dropDownContent, historyList.length - 1);
+      localStorage.setItem('userHistory', JSON.stringify(historyList))
+    }
   }
-  createContents();
+  //resets the user input field
+  document.getElementById('startingDestination').value = "";
+  document.getElementById('endingDestination').value = "";
+}
+
+// adds a search history to the top of the dropdown list
+function addHistory(dropDownContent, index) {
+    var content = document.createElement('a');
+    content.textContent = "Start: " + historyList[index].userStart + ', End: ' + historyList[index].userEnd;
+    content.setAttribute('class', 'dropdown-item');
+    dropDownContent.insertBefore(content, dropDownContent.firstElementChild);
+}
+
+//removes the last history search
+function removeLastHistory(dropDownContent) {
+    dropDownContent.lastElementChild.previousSibling.remove();
+}
+
+//clears the search history on the dropdown list
+function clearHistory() {
+  var dropDownContent = document.querySelector('.dropdown-content');
+  var firstEl = dropDownContent.firstElementChild;
+  if (firstEl.id !== "first-child") {
+    while (firstEl.id !== "first-child") {
+      dropDownContent.removeChild(firstEl);
+      firstEl = dropDownContent.firstElementChild;
+    }
+    historyList = [];
+    localStorage.setItem('userHistory', JSON.stringify(historyList))
+  } else {
+    return;
+  }
 }
 
 document.querySelector('#btn').addEventListener('click', storeUserInput);
+document.querySelector('#first-child').addEventListener('click', clearHistory);
 
 
 //drop-down button for a history
