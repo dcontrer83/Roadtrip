@@ -99,7 +99,7 @@ function initAutocomplete() {
     {
       types: ['address'],
       componentRestrictions: { 'country': ['us', 'ca', 'mx'] },
-      fields: ['place_id', 'geomery', 'name']
+      fields: ['place_id', 'geometry', 'name']
     }
   )
   endAutocomplete = new google.maps.places.Autocomplete(
@@ -107,7 +107,7 @@ function initAutocomplete() {
     {
       types: ['address'],
       componentRestrictions: { 'country': ['us', 'ca', 'mx'] },
-      fields: ['place_id', 'geomery', 'name']
+      fields: ['place_id', 'geometry', 'name']
     }
   )
 }
@@ -450,10 +450,16 @@ document.querySelectorAll('.sibling').forEach(item => {
 var dropDownEl = document.querySelector('.dropdown');
 
 dropDownEl.addEventListener('click', getHistoryList);
+document.querySelector('body').addEventListener('keydown', closeHistoryList);
 
 function getHistoryList(event) {
     dropDownEl.classList.toggle("is-active");
+    return;
+}
 
+function closeHistoryList() {
+  dropDownEl.classList.remove("is-active");
+  return;
 }
 
 //Refernce to the top 5 list contianer div
