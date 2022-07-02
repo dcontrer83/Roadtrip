@@ -79,11 +79,11 @@ function generateRoute(event) {
       travelMode: google.maps.TravelMode.DRIVING,
     })
   })
-    // .then(res => console.log(res))
+    .then(res => res.json())
     .then(data => {
-      console.log(data);
-      const { result } = data;
-      directionsDisplay.setDirections(result)
+      let { result } = data;
+      console.log(result);
+      directionsDisplay.setDirections(result);
     })
     .catch(err => console.log(err));
 

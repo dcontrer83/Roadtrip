@@ -5,6 +5,7 @@ const router = express.Router();
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 const axios = require('axios');
+const request = require('request');
 
 dotenv.config();
 
@@ -33,12 +34,19 @@ app.post('/genRoute', async (req, res) => {
 
     let url = `https://maps.googleapis.com/maps/api/directions/json?destination=${destination}&origin=${origin}&mode=${travelMode}&key=${key}`;
 
-    try {
-        const { data } = await axios.get(url);
-        res.status(200).send(data);
-    } catch (err) {
-        console.log(err);
-    }
+    // Request the JSON? 
+    // request(url, function (err, response, body) {
+    //     if (!err && response.statusCode == 200) {
+    //         let jsonFile = JSON.parse(body);
+    //         res.send({
+    //             result: JSON.stringify(jsonFile)
+    //         })
+    //     }
+    // })
+
+    // send a request to the URL itself?
+    axios(url)
+        .then(response => res.send(response));
 })
 
 //create server at port 3000
