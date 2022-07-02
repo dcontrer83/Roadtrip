@@ -355,14 +355,19 @@ function createContents() {
 //store user inputs when 'Plan' button is clicked
 function storeUserInput(event) {
   event.preventDefault();
-  var start = document.getElementById('startingDestination').value;
-  var end =  document.getElementById('endingDestination').value;
+  var start = document.getElementById('startingDestination').value.trim();
+  var end =  document.getElementById('endingDestination').value.trim();
 
   var historyObj = {
     userStart: start,
     userEnd: end
   }
   var dropDownContent = document.querySelector('.dropdown-content')
+  if (isDuplicate(historyList, historyObj)) {
+    document.getElementById('startingDestination').value = "";
+    document.getElementById('endingDestination').value = "";
+    return;
+  }
   if (!historyList) { //if the array is empty
       historyList = [historyObj];
       localStorage.setItem('userHistory', JSON.stringify(historyList));
@@ -383,16 +388,25 @@ function storeUserInput(event) {
   document.getElementById('startingDestination').value = "";
   document.getElementById('endingDestination').value = "";
   //adds an event listener to each search history that user inputs
-  document.querySelectorAll('.dropdown-item').forEach(item => {
+  document.querySelectorAll('.sibling').forEach(item => {
     item.addEventListener('click', inputSearch);
   });
+}
+
+function isDuplicate(historyList, historyObj) {
+  for (var i = 0; i < historyList.length; ++i) {
+    if (historyList[i].userStart === historyObj.userStart && historyList[i].userEnd === historyObj.userEnd) {
+      return true;
+    }
+  }
+  return false;
 }
 
 // adds a search history to the top of the dropdown list
 function addHistory(dropDownContent, index) {
     var content = document.createElement('a');
     content.textContent = historyList[index].userStart + ' | ' + historyList[index].userEnd;
-    content.setAttribute('class', 'dropdown-item');
+    content.setAttribute('class', 'dropdown-item sibling');
     dropDownContent.insertBefore(content, dropDownContent.firstElementChild);
 }
 
@@ -428,7 +442,7 @@ function inputSearch(event) {
 document.querySelector('#btn').addEventListener('click', storeUserInput);
 document.querySelector('#first-child').addEventListener('click', clearHistory);
 //initializes the search history list with an eventlistener
-document.querySelectorAll('.dropdown-item').forEach(item => {
+document.querySelectorAll('.sibling').forEach(item => {
   item.addEventListener('click', inputSearch);
 });
 
@@ -465,12 +479,10 @@ function createListItems(result) {
   //use service.getDetails() to recieve the details.
   service.getDetails(request, function (result, status) {
     if (status == 'OK') {
-      console.log(result);
       let placeAddress = result.formatted_address;
       let placeName = result.name;
       let rating = result.rating;
       let totalRatings = result.user_ratings_total;
-      console.log(totalRatings);
       let photo = result.photos[0].getUrl({ maxWidth: 500, maxHeight: 500 });
 
       //create a list element
