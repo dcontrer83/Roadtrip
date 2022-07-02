@@ -347,7 +347,6 @@ function createContents() {
     for (var i = 0; i < historyList.length; ++i) {
         addHistory(dropDownContent, i);
     }
-    console.log(dropDownContent.childElementCount);
   } else {
     return;
   }
@@ -383,12 +382,16 @@ function storeUserInput(event) {
   //resets the user input field
   document.getElementById('startingDestination').value = "";
   document.getElementById('endingDestination').value = "";
+  //adds an event listener to each search history that user inputs
+  document.querySelectorAll('.dropdown-item').forEach(item => {
+    item.addEventListener('click', inputSearch);
+  });
 }
 
 // adds a search history to the top of the dropdown list
 function addHistory(dropDownContent, index) {
     var content = document.createElement('a');
-    content.textContent = "Start: " + historyList[index].userStart + ', End: ' + historyList[index].userEnd;
+    content.textContent = historyList[index].userStart + ' | ' + historyList[index].userEnd;
     content.setAttribute('class', 'dropdown-item');
     dropDownContent.insertBefore(content, dropDownContent.firstElementChild);
 }
@@ -413,13 +416,23 @@ function clearHistory() {
     return;
   }
 }
+// adds the search history input to the user's input field
+function inputSearch(event) {
+  event.preventDefault();
+  var link = event.target;
+  var searches = link.text.split('|');
+  document.getElementById('startingDestination').value = searches[0];
+  document.getElementById('endingDestination').value = searches[1];
+}
 
 document.querySelector('#btn').addEventListener('click', storeUserInput);
 document.querySelector('#first-child').addEventListener('click', clearHistory);
-
+//initializes the search history list with an eventlistener
+document.querySelectorAll('.dropdown-item').forEach(item => {
+  item.addEventListener('click', inputSearch);
+});
 
 //drop-down button for a history
-
 var dropDownEl = document.querySelector('.dropdown');
 
 dropDownEl.addEventListener('click', getHistoryList);

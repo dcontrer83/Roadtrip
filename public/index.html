@@ -48,25 +48,26 @@
     </div>
   </section>
 
-  <div class="dropdown">
-    <div class="dropdown-trigger">
-      <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-        <span>Dropdown button</span>
-        <span class="icon is-small">
-          <i class="fas fa-angle-down" aria-hidden="true"></i>
-        </span>
-      </button>
-    </div>
-    <div class="dropdown-menu" id="dropdown-menu" role="menu">
-      <div class="dropdown-content">
-        <a class="dropdown-item" id = "first-child">
-          Clear All History
-        </a>
+  <div id="containerInput">
+    <!-- Dropdown history button -->
+    <div class="dropdown">
+      <div class="dropdown-trigger">
+        <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+          <span>Recent Searches</span>
+          <span class="icon is-small">
+            <i class="fas fa-angle-down" aria-hidden="true"></i>
+          </span>
+        </button>
+      </div>
+      <div class="dropdown-menu" id="dropdown-menu" role="menu">
+        <div class="dropdown-content">
+          <a class="dropdown-item" id = "first-child">
+            Clear All History
+          </a>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div id="containerInput">
     <input class="input" type="text" placeholder="Starting Location" id="startingDestination">
     <input class="input" type="text" placeholder="Ending Destination" id="endingDestination">
     <button class="button" id="btn">Plan</button>

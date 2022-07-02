@@ -24,6 +24,12 @@
     padding-right: 50px;
 }
 
+/* search history button CSS */
+.dropdown {
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
 /* Google maps CSS */
 #map {
     height: 75%;
