@@ -3,7 +3,7 @@ const path = require('path');
 const app = express();
 const router = express.Router();
 const dotenv = require('dotenv');
-const bodyParser = require('body-parses');
+const bodyParser = require('body-parser');
 
 //Locally use 'localHost:3000', however Heroku listens only to whatever is on the Environmental variable PORT
 //thus PORT is equal to either the environment PORT OR Local PORT 3000
@@ -16,6 +16,29 @@ app.use(express.static('public'));
 
 //Enables Express to handle data sent via POST requests as JSON
 app.use(bodyParser.json());
+
+//Creating a POST request for generate route
+app.post('/genRoute', (req, res) => {
+    let directionService = req.googleAPI;
+
+    let request = {
+        origin: req.origin,
+        destination: req.destination,
+        travelMode: req.travelMode,
+    }
+
+    directionService.route(request, (result, status) => {
+        if (status == 'OK') {
+            res.send({
+                result: result
+            });
+        }
+        else {
+            console.log(err);
+        }
+    });
+})
+
 
 //create server at port 3000
 //changed 3000 -> PORT.

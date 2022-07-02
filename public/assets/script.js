@@ -1,4 +1,3 @@
-
 //Google maps javascript
 // also added a geolocation functionality to find the user's current location
 // note: The user must enable the geolocation by clicking 'Allow' when it prompts
@@ -66,19 +65,32 @@ function generateRoute(event) {
   let request = {
     origin: document.querySelector('#startingDestination').value,
     destination: document.querySelector('#endingDestination').value,
-    travelMode: google.maps.TravelMode.DRIVING
+    travelMode: google.maps.TravelMode.DRIVING,
+    googleAPI: directionService
   }
 
-
+  fetch("/genRoute", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-type": "application/json"
+    },
+    body: JSON.stringify(request)
+  })
+    .then(res => res.json())
+    .then(data => {
+      const { result } = data;
+      directionsDisplay.setDirections(result)
+    })
   //Send the request to the route method
-  directionService.route(request, (result, status) => {
-    //check if the status is good
-    if (status == 'OK') {
-      directionsDisplay.setDirections(result);
-    } else {
-      console.log(status);
-    }
-  });
+  // directionService.route(request, (result, status) => {
+  //   //check if the status is good
+  //   if (status == 'OK') {
+  //     directionsDisplay.setDirections(result);
+  //   } else {
+  //     console.log(status);
+  //   }
+  // });
 }
 
 // Call the generateRoute function when the user clicks the button
@@ -339,3 +351,4 @@ function createMarker(result) {
 
 
 document.querySelector('#btn').addEventListener('click', getPlaces);
+
