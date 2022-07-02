@@ -4,14 +4,15 @@ const app = express();
 const router = express.Router();
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
+const axios = require('axios');
 
-let key = "AIzaSyDWpHE17jcCzscWWWAzcTc3wiMnH4ewdho";
+dotenv.config();
+
+const key = process.env.KEY;
 
 //Locally use 'localHost:3000', however Heroku listens only to whatever is on the Environmental variable PORT
 //thus PORT is equal to either the environment PORT OR Local PORT 3000
 const PORT = process.env.PORT || 3000;
-
-dotenv.config();
 
 //Render all static files folder
 app.use(express.static('public'));
@@ -25,19 +26,19 @@ router.get('/', (req, res) => {
 })
 
 //Creating a POST request for generate route
-app.post('/genRoute', (req, res) => {
+app.post('/genRoute', async (req, res) => {
     let origin = req.body.origin;
     let destination = req.body.destination;
     let travelMode = req.body.travelMode;
 
     let url = `https://maps.googleapis.com/maps/api/directions/json?destination=${destination}&origin=${origin}&mode=${travelMode}&key=${key}`;
-    console.log(url)
 
-    fetch(url)
-        .then(result => {
-            console.log(result);
-            res.send(result);
-        })
+    try {
+        const { data } = await axios.get(url);
+        res.status(200).send(data);
+    } catch (err) {
+        console.log(err);
+    }
 })
 
 //create server at port 3000

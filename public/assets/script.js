@@ -79,8 +79,9 @@ function generateRoute(event) {
       travelMode: google.maps.TravelMode.DRIVING,
     })
   })
-    .then(res => res.json())
+    // .then(res => console.log(res))
     .then(data => {
+      console.log(data);
       const { result } = data;
       directionsDisplay.setDirections(result)
     })
