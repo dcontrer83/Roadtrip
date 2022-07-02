@@ -17,26 +17,33 @@ app.use(express.static('public'));
 //Enables Express to handle data sent via POST requests as JSON
 app.use(bodyParser.json());
 
+//Display index.html page when user enters the homepage
+router.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname + '/public/index.html'));
+})
+
 //Creating a POST request for generate route
 app.post('/genRoute', (req, res) => {
     let directionService = req.googleAPI;
+    console.log(directionService);
 
     let request = {
         origin: req.origin,
         destination: req.destination,
         travelMode: req.travelMode,
     }
+    console.log(request)
 
-    directionService.route(request, (result, status) => {
-        if (status == 'OK') {
-            res.send({
-                result: result
-            });
-        }
-        else {
-            console.log(err);
-        }
-    });
+    // directionService.route(request, (result, status) => {
+    //     if (status == 'OK') {
+    //         res.send({
+    //             result: result
+    //         });
+    //     }
+    //     else {
+    //         console.log(err);
+    //     }
+    // });
 })
 
 

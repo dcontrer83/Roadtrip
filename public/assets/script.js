@@ -82,6 +82,7 @@ function generateRoute(event) {
       const { result } = data;
       directionsDisplay.setDirections(result)
     })
+    .catch(err => console.log(err));
   //Send the request to the route method
   // directionService.route(request, (result, status) => {
   //   //check if the status is good
