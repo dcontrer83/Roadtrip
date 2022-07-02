@@ -25,32 +25,49 @@
     <div class="hero-body" id="hero-body">
       <div id="textImg">Are We There Yet?</div>
       <div class="slideshow-container">
-
         <div class="mySlides fade">
           <img class="roadTripImg" src="./assets/images/tabea-schimpf-9-xfYKAI6ZI-unsplash.jpg">
         </div>
-    
+
         <div class="mySlides fade">
           <img class="roadTripImg" src="./assets/images/kevin-noble-QNfgoOLsG7c-unsplash.jpg">
         </div>
-    
+
         <div class="mySlides fade">
           <img class="roadTripImg" src="./assets/images/shai-pal-DQviXGWu-KA-unsplash.jpg">
         </div>
-    
+
         <div class="mySlides fade">
           <img class="roadTripImg" src="./assets/images/drew-lindsley-7UdSup394EI-unsplash.jpg">
         </div>
-    
+
         <div class="mySlides fade">
           <img class="roadTripImg" src="./assets/images/nicki-eliza-schinow-mg3nB1l2KdM-unsplash.jpg">
         </div>
-    
       </div>
     </div>
   </section>
 
   <div id="containerInput">
+    <!-- Dropdown history button -->
+    <div class="dropdown">
+      <div class="dropdown-trigger">
+        <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+          <span>Recent Searches</span>
+          <span class="icon is-small">
+            <i class="fas fa-angle-down" aria-hidden="true"></i>
+          </span>
+        </button>
+      </div>
+      <div class="dropdown-menu" id="dropdown-menu" role="menu">
+        <div class="dropdown-content">
+          <a class="dropdown-item" id = "first-child">
+            Clear All History
+          </a>
+        </div>
+      </div>
+    </div>
+
     <input class="input" type="text" placeholder="Starting Location" id="startingDestination">
     <input class="input" type="text" placeholder="Ending Destination" id="endingDestination">
     <button class="button" id="btn">Plan</button>
@@ -59,10 +76,30 @@
   <!-- Google maps box -->
   <div id="map"></div>
 
-
   <div id="containerDistanceDuration">
     <textarea class="textarea has-fixed-size" readonly id="distanceTravel">Distance in Miles: </textarea>
     <textarea class="textarea has-fixed-size" readonly id="durationTravel">Duration in Minutes: </textarea>
+  </div>
+
+  <!-- Div containing the top 5 list -->
+  <div class="hidden" id="topFiveContainer">
+    <h2 class="title is-3" id="topFiveHeader">Must See Destinations:</h2>
+    <ul id="topFiveList">
+      <!-- EXAMPLE STRUCTURE  
+        <li class="topFiveListItem">
+        <div class="t5ListItemContainer">
+          <h3 class="t5LocationHeader">Location Name</h3>
+          <p class="ratingPara">Rating of Location</p>
+          <p class="totalRatingPara">Total Reviews</p>
+          <p class="addressPara">Address of location</p>
+          <div class="placePhotoContainer">
+            <img
+              src="https://images.unsplash.com/photo-1656376406179-1fbd9a8f4362?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=685&q=80"
+              class="placePhoto">
+          </div>
+        </div>
+       -->
+    </ul>
   </div>
 
   <script src="assets/script.js"></script>

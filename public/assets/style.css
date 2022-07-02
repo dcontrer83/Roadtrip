@@ -8,12 +8,13 @@
 
 #textImg {
     position: absolute;
-    z-index: 1;
     top: 55px;
     left: 106px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 50px;
-    color: red;
+    z-index: 1;
+    font-family: 'Montserrat';
+    font-size: 3em;
+    font-weight: bolder;
+    color: #d68c45;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
@@ -23,6 +24,11 @@
     padding-right: 50px;
 }
 
+/* search history button CSS */
+.dropdown {
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
 
 /* Google maps CSS */
 #map {
@@ -30,6 +36,7 @@
     margin-bottom: 10px;
     margin-left: 50px;
     margin-right: 50px;
+    border-radius: 3px;
 }
 
 html,
@@ -121,6 +128,7 @@ button.custom-map-control-button[style] {
     vertical-align: middle;
     width: 100vw;
     height: 60vh;
+    border-radius: 3px;
 }
 
 /* Slideshow container */
@@ -163,4 +171,78 @@ button.custom-map-control-button[style] {
     flex-direction: column;
     margin-left: 50px;
     margin-right: 50px;
+}
+
+/* Styles for the top 5 list */
+#topFiveContainer {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 50px;
+    margin-right: 50px;
+    border-radius: 3px;
+    margin-bottom: 2%;
+    padding-bottom: 1%;
+}
+
+#topFiveHeader {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    padding: 2%;
+    margin-bottom: 0;
+    border-bottom: 1px solid black;
+}
+
+#topFiveList {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 1%;
+}
+
+/* Container div for the top 5 list items */
+.t5ListItemContainer {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    border-bottom: 1px solid black;
+}
+
+/* remove border from last child */
+.t5ListItemContainer:last-child {
+    border-bottom: none;
+}
+
+/* Header for the top 5 list items */
+.t5LocationHeader {
+    font-size: 200%;
+    font-weight: bold;
+}
+
+/* Paragraph for rating */
+.ratingPara {
+    font-size: 140%;
+}
+
+/* Paragraph for rating total */
+.totalRatingPara {
+    font-size: 125%;
+}
+
+/* Paragraph for rating */
+.addressPara {
+    font-size: 125%;
+}
+
+/* Photo of the place */
+.placePhoto {
+    border-radius: 4px;
+}
+
+.hidden {
+    display: none !important;
 }
