@@ -262,11 +262,6 @@ function getPlaces(event) {
         type: ['tourist_attraction']
       }
 
-<<<<<<< HEAD
-      // console.log(request);
-
-=======
->>>>>>> 56f2a2ea955c1939d8136f5e422b1a3a39246266
       placesService.nearbySearch(request, function (results, status) {
         if (status == 'OK') {
           for (let i = 0; i < results.length; i++) {
