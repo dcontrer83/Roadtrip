@@ -63,26 +63,40 @@ function initMap() {
 }
 
 //Function to generate route of trave
+//Function to generate route of trave
 function generateRoute(event) {
   event.preventDefault();
-  //Generate a request
-  let request = {
-    origin: document.querySelector('#startingDestination').value,
-    destination: document.querySelector('#endingDestination').value,
-    travelMode: google.maps.TravelMode.DRIVING
-  }
 
+  fetch("/genRoute", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-type": "application/json"
+    },
+    body: JSON.stringify({
+      origin: document.querySelector('#startingDestination').value,
+      destination: document.querySelector('#endingDestination').value,
+      travelMode: google.maps.TravelMode.DRIVING,
+    })
+  })
+    .then(res => res.json())
+    .then(data => {
+      const { result } = data;
+      directionsDisplay.setDirections(result)
+    })
+    .catch(err => console.log(err));
 
-  //Send the request to the route method
-  directionService.route(request, (result, status) => {
-    //check if the status is good
-    if (status == 'OK') {
-      directionsDisplay.setDirections(result);
-    } else {
-      console.log(status);
-    }
-  });
+  // Send the request to the route method
+  // directionService.route(request, (result, status) => {
+  //   //check if the status is good
+  //   if (status == 'OK') {
+  //     directionsDisplay.setDirections(result);
+  //   } else {
+  //     console.log(status);
+  //   }
+  // });
 }
+
 
 // Call the generateRoute function when the user clicks the button
 planBtn.addEventListener('click', generateRoute);
@@ -345,7 +359,7 @@ function createContents() {
   var dropDownContent = document.querySelector('.dropdown-content');
   if (historyList) {
     for (var i = 0; i < historyList.length; ++i) {
-        addHistory(dropDownContent, i);
+      addHistory(dropDownContent, i);
     }
   } else {
     return;
@@ -356,7 +370,7 @@ function createContents() {
 function storeUserInput(event) {
   event.preventDefault();
   var start = document.getElementById('startingDestination').value.trim();
-  var end =  document.getElementById('endingDestination').value.trim();
+  var end = document.getElementById('endingDestination').value.trim();
 
   var historyObj = {
     userStart: start,
@@ -369,8 +383,8 @@ function storeUserInput(event) {
     return;
   }
   if (!historyList) { //if the array is empty
-      historyList = [historyObj];
-      localStorage.setItem('userHistory', JSON.stringify(historyList));
+    historyList = [historyObj];
+    localStorage.setItem('userHistory', JSON.stringify(historyList));
   } else { // if it's not empty
     if (dropDownContent.childElementCount > 5) {
       historyList.shift();
@@ -404,15 +418,15 @@ function isDuplicate(historyList, historyObj) {
 
 // adds a search history to the top of the dropdown list
 function addHistory(dropDownContent, index) {
-    var content = document.createElement('a');
-    content.textContent = historyList[index].userStart + ' | ' + historyList[index].userEnd;
-    content.setAttribute('class', 'dropdown-item sibling');
-    dropDownContent.insertBefore(content, dropDownContent.firstElementChild);
+  var content = document.createElement('a');
+  content.textContent = historyList[index].userStart + ' | ' + historyList[index].userEnd;
+  content.setAttribute('class', 'dropdown-item sibling');
+  dropDownContent.insertBefore(content, dropDownContent.firstElementChild);
 }
 
 //removes the last history search
 function removeLastHistory(dropDownContent) {
-    dropDownContent.lastElementChild.previousSibling.remove();
+  dropDownContent.lastElementChild.previousSibling.remove();
 }
 
 //clears the search history on the dropdown list
@@ -453,8 +467,8 @@ dropDownEl.addEventListener('click', getHistoryList);
 document.querySelector('body').addEventListener('keydown', closeHistoryList);
 
 function getHistoryList(event) {
-    dropDownEl.classList.toggle("is-active");
-    return;
+  dropDownEl.classList.toggle("is-active");
+  return;
 }
 
 function closeHistoryList() {
