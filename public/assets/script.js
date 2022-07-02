@@ -190,13 +190,10 @@ planBtn.addEventListener('click', calculateDistance);
 //the circle object
 let areaCircle;
 
-<<<<<<< HEAD
 //function to generate places
 
 //function to draw a circle around the end destination
-=======
 //function to draw a circle around the end destination and initialize the page
->>>>>>> 56f2a2ea955c1939d8136f5e422b1a3a39246266
 function createCircle(event) {
   event.preventDefault();
 
