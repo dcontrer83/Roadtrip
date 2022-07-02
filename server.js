@@ -30,10 +30,14 @@ app.post('/genRoute', (req, res) => {
     let destination = req.body.destination;
     let travelMode = req.body.travelMode;
 
-    console.log(origin);
-
     let url = `https://maps.googleapis.com/maps/api/directions/json?destination=${destination}&origin=${origin}&mode=${travelMode}&key=${key}`;
-    console.log(url);
+    console.log(url)
+
+    fetch(url)
+        .then(result => {
+            console.log(result);
+            res.send(result);
+        })
 })
 
 //create server at port 3000
