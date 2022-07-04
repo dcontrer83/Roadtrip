@@ -67,11 +67,11 @@ function generateRoute(event) {
   event.preventDefault();
 
   // request(client side)
-  // let request = {
-  //   origin: document.querySelector('#startingDestination').value,
-  //   destination: document.querySelector('#endingDestination').value,
-  //   travelMode: google.maps.TravelMode.DRIVING
-  // }
+  let request = {
+    origin: document.querySelector('#startingDestination').value,
+    destination: document.querySelector('#endingDestination').value,
+    travelMode: google.maps.TravelMode.DRIVING
+  }
 
   fetch("/genRoute", {
     method: "POST",
@@ -92,17 +92,16 @@ function generateRoute(event) {
     })
     .catch(err => console.log(err));
 
-
   // Send the request to the route method
-  // directionService.route(request, (result, status) => {
-  //   //check if the status is good
-  //   if (status == 'OK') {
-  //     console.log(result);
-  //     directionsDisplay.setDirections(result);
-  //   } else {
-  //     console.log(status);
-  //   }
-  // });
+  directionService.route(request, (result, status) => {
+    //check if the status is good
+    if (status == 'OK') {
+      console.log(result);
+      directionsDisplay.setDirections(result);
+    } else {
+      console.log(status);
+    }
+  });
 }
 
 
