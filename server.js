@@ -6,9 +6,15 @@ const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 const request = require('request');
+const { Client } = require("@googlemaps/google-maps-services-js");
 
+//Configure environmental variables
 dotenv.config();
 
+//Instantiate the google maps client
+const client = new Client({});
+
+//Save the google api key from the .env file onto the variable 'key'.
 const key = process.env.KEY;
 
 //Locally use 'localHost:3000', however Heroku listens only to whatever is on the Environmental variable PORT
