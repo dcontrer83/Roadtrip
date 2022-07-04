@@ -62,10 +62,16 @@ function initMap() {
 
 }
 
-//Function to generate route of trave
-//Function to generate route of trave
+//Function to generate route of travel
 function generateRoute(event) {
   event.preventDefault();
+
+  // request(client side)
+  // let request = {
+  //   origin: document.querySelector('#startingDestination').value,
+  //   destination: document.querySelector('#endingDestination').value,
+  //   travelMode: google.maps.TravelMode.DRIVING
+  // }
 
   fetch("/genRoute", {
     method: "POST",
@@ -81,16 +87,17 @@ function generateRoute(event) {
   })
     .then(res => res.json())
     .then(data => {
-      let { result } = data;
-      console.log(result);
-      directionsDisplay.setDirections(result);
+      console.log(data);
+      directionsDisplay.setDirections(data);
     })
     .catch(err => console.log(err));
+
 
   // Send the request to the route method
   // directionService.route(request, (result, status) => {
   //   //check if the status is good
   //   if (status == 'OK') {
+  //     console.log(result);
   //     directionsDisplay.setDirections(result);
   //   } else {
   //     console.log(status);

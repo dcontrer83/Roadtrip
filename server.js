@@ -11,11 +11,11 @@ const { Client } = require("@googlemaps/google-maps-services-js");
 //Configure environmental variables
 dotenv.config();
 
-//Instantiate the google maps client
-const client = new Client({});
-
 //Save the google api key from the .env file onto the variable 'key'.
 const key = process.env.KEY;
+
+//Instantiate the google maps client
+const client = new Client({});
 
 //Locally use 'localHost:3000', however Heroku listens only to whatever is on the Environmental variable PORT
 //thus PORT is equal to either the environment PORT OR Local PORT 3000
@@ -40,7 +40,7 @@ app.post('/genRoute', async (req, res) => {
 
     let url = `https://maps.googleapis.com/maps/api/directions/json?destination=${destination}&origin=${origin}&mode=${travelMode}&key=${key}`;
 
-    // Request the JSON? 
+    // Attempt 1: Request the JSON? 
     // request(url, function (err, response, body) {
     //     if (!err && response.statusCode == 200) {
     //         let jsonFile = JSON.parse(body);
@@ -50,9 +50,28 @@ app.post('/genRoute', async (req, res) => {
     //     }
     // })
 
-    // send a request to the URL itself?
-    axios(url)
-        .then(response => res.send(response));
+    // Attempt 2: send a request to the URL itself?
+    // axios(url)
+    //     .then(response => res.send(response));
+
+
+    // Attempt 3: Node.js GoogleMaps client
+    client
+        .directions({
+            params: {
+                origin: origin,
+                destination: destination,
+                mode: travelMode,
+                key: key
+            },
+            url: url
+        })
+        .then((result) => {
+            res.send(JSON.stringify(result.data));
+        })
+        .catch((err) => {
+            console.log(err);
+        })
 })
 
 //create server at port 3000
