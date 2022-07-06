@@ -180,15 +180,10 @@ button.custom-map-control-button[style] {
 /* Styles for the top 5 list */
 #topFiveContainer {
     background-color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     margin-left: 50px;
     margin-right: 50px;
     border-radius: 3px;
     margin-bottom: 2%;
-    padding-bottom: 1%;
 }
 
 #topFiveHeader {
@@ -213,6 +208,7 @@ button.custom-map-control-button[style] {
     flex-direction: column;
     font-family: 'Montserrat', sans-serif;
     text-align: center;
+    padding-bottom: 20px;
     border-bottom: 1px solid black;
 }
 
