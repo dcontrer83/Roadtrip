@@ -172,7 +172,8 @@ function displayDistance(response, status) {
     var origin = response.originAddresses[0];
     var destination = response.destinationAddresses[0];
     if (response.rows[0].elements[0].status === "ZERO_RESULTS") {
-      document.getElementById("distanceTravel").textContent = "Better get on a plane since there is no road between your two locations!";
+      document.getElementById("distanceTravel").textContent = "Better get plane tickets because there is no road between your two locations.";
+      document.getElementById("durationTravel").textContent = "Duration: Unavailable";
     }
     else {
       var distance = response.rows[0].elements[0].distance;
