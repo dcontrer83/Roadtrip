@@ -302,6 +302,11 @@ function createMarker(result) {
     }
   });
 
+  //Stop the bouncing animation after 2.5 seconds
+  setTimeout(function () {
+    marker.setAnimation(null);
+  }, 2500);
+
   //add the created marker to the markers array.
   markersArray.push(marker);
 
@@ -324,11 +329,6 @@ function createMarker(result) {
   marker.addListener('click', () => {
     resultInfoWindow.open(map, marker);
   })
-
-  //Stop the bouncing animation after 2.5 seconds
-  setTimeout(function () {
-    marker.setAnimation(null);
-  }, 2500);
 
 }
 
