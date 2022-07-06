@@ -82,20 +82,24 @@ button.custom-map-control-button[style] {
 
 #distanceTravel {
     min-width: 0px;
-    font-size: 13px;
+    font-size: 25px;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
     text-align: center;
     min-height: 0px;
-    height: 40px;
+    height: 75px;
     width: 100%;
     margin-bottom: 10px;
 }
 
 #durationTravel {
     min-width: 0px;
-    font-size: 13px;
+    font-size: 25px;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
     text-align: center;
     min-height: 0px;
-    height: 40px;
+    height: 75px;
     width: 100%;
     margin-bottom: 10px;
 }
