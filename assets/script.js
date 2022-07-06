@@ -364,8 +364,8 @@ function storeUserInput(event) {
   }
   var dropDownContent = document.querySelector('.dropdown-content')
   if (isDuplicate(historyList, historyObj)) {
-    document.getElementById('startingDestination').value = "";
-    document.getElementById('endingDestination').value = "";
+    // document.getElementById('startingDestination').value = "";
+    // document.getElementById('endingDestination').value = "";
     return;
   }
   if (!historyList) { //if the array is empty
@@ -385,9 +385,7 @@ function storeUserInput(event) {
       localStorage.setItem('userHistory', JSON.stringify(historyList))
     }
   }
-  //resets the user input field
-  document.getElementById('startingDestination').value = "";
-  document.getElementById('endingDestination').value = "";
+
   //adds an event listener to each search history that user inputs
   document.querySelectorAll('.sibling').forEach(item => {
     item.addEventListener('click', inputSearch);
