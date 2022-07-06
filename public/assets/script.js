@@ -172,7 +172,8 @@ function displayDistance(response, status) {
     var origin = response.originAddresses[0];
     var destination = response.destinationAddresses[0];
     if (response.rows[0].elements[0].status === "ZERO_RESULTS") {
-      document.getElementById("distanceTravel").textContent = "Better get on a plane since there is no road between your two locations!";
+      document.getElementById("distanceTravel").textContent = "Better get plane tickets because there is no road between your two locations.";
+      document.getElementById("durationTravel").textContent = "Duration: Unavailable";
     }
     else {
       var distance = response.rows[0].elements[0].distance;
@@ -302,6 +303,11 @@ function createMarker(result) {
     }
   });
 
+  //Stop the bouncing animation after 2.5 seconds
+  setTimeout(function () {
+    marker.setAnimation(null);
+  }, 2500);
+
   //add the created marker to the markers array.
   markersArray.push(marker);
 
@@ -324,11 +330,6 @@ function createMarker(result) {
   marker.addListener('click', () => {
     resultInfoWindow.open(map, marker);
   })
-
-  //Stop the bouncing animation after 2.5 seconds
-  setTimeout(function () {
-    marker.setAnimation(null);
-  }, 2500);
 
 }
 
