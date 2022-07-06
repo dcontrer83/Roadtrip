@@ -47,7 +47,7 @@ body {
     margin: 0;
     padding: 0;
     background-image: url("./images/mohammad-alizade-S5uV7ro4UPY-unsplash.jpg");
-    background-size: contain;
+    background-size: 100% 100%;
 }
 
 /* Location box CSS */
@@ -245,4 +245,55 @@ button.custom-map-control-button[style] {
 
 .hidden {
     display: none !important;
+}
+
+/* for small screens/ laptops  */
+@media screen and (max-width: 1024px) {
+    .roadTripImg {
+        height: 55hv;
+    }
+    #textImg {
+        left: 140px;
+    }
+    #map {
+        height: 70%;
+    }
+}
+
+/* for tablets */
+@media screen and (max-width: 768px) {
+    .roadTripImg {
+        height: 45hv;
+    }
+    #textImg {
+        top: 23px;
+        left: 136px;
+        font-size: 2.5em;
+    }
+    #map {
+        height: 65%;
+    }
+}
+
+/* for mobile devices */
+@media screen and (max-width: 480px){
+    #textImg {
+        font-size: 1.5em;
+        top: 33px;
+        left: 80px;
+    }
+   .roadTripImg {
+        height: 30vh;
+   }    
+   #map {
+        height: 40%;
+   }
+   #containerInput {
+        display: block;
+   }
+   #btn {
+    width: 100%;
+    margin-bottom: 10px;
+    font-weight: bold;
+   }
 }
