@@ -394,6 +394,9 @@ function storeUserInput(event) {
 }
 
 function isDuplicate(historyList, historyObj) {
+  if(!historyList) {
+    return false;
+  }
   for (var i = 0; i < historyList.length; ++i) {
     if (historyList[i].userStart === historyObj.userStart && historyList[i].userEnd === historyObj.userEnd) {
       return true;
