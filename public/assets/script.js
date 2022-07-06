@@ -99,7 +99,7 @@ function initAutocomplete() {
     {
       types: ['address'],
       componentRestrictions: { 'country': ['us', 'ca', 'mx'] },
-      fields: ['place_id', 'geomery', 'name']
+      fields: ['place_id', 'geometry', 'name']
     }
   )
   endAutocomplete = new google.maps.places.Autocomplete(
@@ -107,7 +107,7 @@ function initAutocomplete() {
     {
       types: ['address'],
       componentRestrictions: { 'country': ['us', 'ca', 'mx'] },
-      fields: ['place_id', 'geomery', 'name']
+      fields: ['place_id', 'geometry', 'name']
     }
   )
 }
@@ -190,6 +190,9 @@ planBtn.addEventListener('click', calculateDistance);
 //the circle object
 let areaCircle;
 
+//function to generate places
+
+//function to draw a circle around the end destination
 //function to draw a circle around the end destination and initialize the page
 function createCircle(event) {
   event.preventDefault();
@@ -332,6 +335,133 @@ function createMarker(result) {
 document.querySelector('#btn').addEventListener('click', getPlaces);
 
 
+//initializes user history when the web page loads
+var historyList = [];
+historyList = JSON.parse(localStorage.getItem('userHistory'));
+createContents();
+
+//creates the dropdown list based on local storage
+function createContents() {
+  var dropDownContent = document.querySelector('.dropdown-content');
+  if (historyList) {
+    for (var i = 0; i < historyList.length; ++i) {
+        addHistory(dropDownContent, i);
+    }
+  } else {
+    return;
+  }
+}
+
+//store user inputs when 'Plan' button is clicked
+function storeUserInput(event) {
+  event.preventDefault();
+  var start = document.getElementById('startingDestination').value.trim();
+  var end =  document.getElementById('endingDestination').value.trim();
+
+  var historyObj = {
+    userStart: start,
+    userEnd: end
+  }
+  var dropDownContent = document.querySelector('.dropdown-content')
+  if (isDuplicate(historyList, historyObj)) {
+    document.getElementById('startingDestination').value = "";
+    document.getElementById('endingDestination').value = "";
+    return;
+  }
+  if (!historyList) { //if the array is empty
+      historyList = [historyObj];
+      localStorage.setItem('userHistory', JSON.stringify(historyList));
+  } else { // if it's not empty
+    if (dropDownContent.childElementCount > 5) {
+      historyList.shift();
+      historyList.push(historyObj);
+      addHistory(dropDownContent, historyList.length - 1);
+      removeLastHistory(dropDownContent);
+      localStorage.setItem('userHistory', JSON.stringify(historyList))
+    } else {
+      historyList.push(historyObj);
+      addHistory(dropDownContent, historyList.length - 1);
+      localStorage.setItem('userHistory', JSON.stringify(historyList))
+    }
+  }
+  //resets the user input field
+  document.getElementById('startingDestination').value = "";
+  document.getElementById('endingDestination').value = "";
+  //adds an event listener to each search history that user inputs
+  document.querySelectorAll('.sibling').forEach(item => {
+    item.addEventListener('click', inputSearch);
+  });
+}
+
+function isDuplicate(historyList, historyObj) {
+  for (var i = 0; i < historyList.length; ++i) {
+    if (historyList[i].userStart === historyObj.userStart && historyList[i].userEnd === historyObj.userEnd) {
+      return true;
+    }
+  }
+  return false;
+}
+
+// adds a search history to the top of the dropdown list
+function addHistory(dropDownContent, index) {
+    var content = document.createElement('a');
+    content.textContent = historyList[index].userStart + ' | ' + historyList[index].userEnd;
+    content.setAttribute('class', 'dropdown-item sibling');
+    dropDownContent.insertBefore(content, dropDownContent.firstElementChild);
+}
+
+//removes the last history search
+function removeLastHistory(dropDownContent) {
+    dropDownContent.lastElementChild.previousSibling.remove();
+}
+
+//clears the search history on the dropdown list
+function clearHistory() {
+  var dropDownContent = document.querySelector('.dropdown-content');
+  var firstEl = dropDownContent.firstElementChild;
+  if (firstEl.id !== "first-child") {
+    while (firstEl.id !== "first-child") {
+      dropDownContent.removeChild(firstEl);
+      firstEl = dropDownContent.firstElementChild;
+    }
+    historyList = [];
+    localStorage.setItem('userHistory', JSON.stringify(historyList))
+  } else {
+    return;
+  }
+}
+// adds the search history input to the user's input field
+function inputSearch(event) {
+  event.preventDefault();
+  var link = event.target;
+  var searches = link.text.split('|');
+  document.getElementById('startingDestination').value = searches[0];
+  document.getElementById('endingDestination').value = searches[1];
+}
+
+document.querySelector('#btn').addEventListener('click', storeUserInput);
+document.querySelector('#first-child').addEventListener('click', clearHistory);
+//initializes the search history list with an eventlistener
+document.querySelectorAll('.sibling').forEach(item => {
+  item.addEventListener('click', inputSearch);
+});
+
+//drop-down button for a history
+var dropDownEl = document.querySelector('.dropdown');
+
+dropDownEl.addEventListener('click', getHistoryList);
+document.querySelector('body').addEventListener('keydown', closeHistoryList);
+
+function getHistoryList(event) {
+    dropDownEl.classList.toggle("is-active");
+    return;
+}
+
+function closeHistoryList() {
+  dropDownEl.classList.remove("is-active");
+  return;
+}
+
 //Refernce to the top 5 list contianer div
 const topFiveListContianer = document.querySelector('#topFiveContainer');
 
@@ -355,12 +485,10 @@ function createListItems(result) {
   //use service.getDetails() to recieve the details.
   service.getDetails(request, function (result, status) {
     if (status == 'OK') {
-      console.log(result);
       let placeAddress = result.formatted_address;
       let placeName = result.name;
       let rating = result.rating;
       let totalRatings = result.user_ratings_total;
-      console.log(totalRatings);
       let photo = result.photos[0].getUrl({ maxWidth: 500, maxHeight: 500 });
 
       //create a list element
