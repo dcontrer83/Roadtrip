@@ -180,7 +180,7 @@ function displayDistance(response, status) {
       var distance_in_mile = distance.value / 1609.34;
       var duration_text = duration.text;
       document.getElementById("distanceTravel").textContent = "Distance in Miles: " + distance_in_mile.toFixed(2);
-      document.getElementById("durationTravel").textContent = "Duration in Minutes: " + duration_text;
+      document.getElementById("durationTravel").textContent = "Duration: " + duration_text;
     }
   }
 }
