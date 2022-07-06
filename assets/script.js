@@ -394,7 +394,7 @@ function storeUserInput(event) {
 }
 
 function isDuplicate(historyList, historyObj) {
-  if(!historyList) {
+  if(historyList === null) {
     return false;
   }
   for (var i = 0; i < historyList.length; ++i) {
