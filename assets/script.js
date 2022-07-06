@@ -370,6 +370,7 @@ function storeUserInput(event) {
   }
   if (!historyList) { //if the array is empty
       historyList = [historyObj];
+      createContents();
       localStorage.setItem('userHistory', JSON.stringify(historyList));
   } else { // if it's not empty
     if (dropDownContent.childElementCount > 5) {
