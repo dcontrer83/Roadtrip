@@ -18,6 +18,11 @@ Here is what the user may see when go to the Must See Destinations section of th
 ![](public/assets/images/must_see.PNG) </br>
 
 
+## Storage
+If the user wishes to view a previously searched route, they may do so by clicking the "Recent Searches" button and selecting the route they wish to take. The user can then generate the route, as before, by clicking the plan button. <br/>
+![](public/assets/images/recent_searched.PNG) </br>
+
+
 ## Technologies Used:
 Front End      | Back End
 -------------  | -------------
